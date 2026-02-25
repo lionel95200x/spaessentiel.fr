@@ -2,7 +2,6 @@ import type { Product, Variant } from '@/payload-types'
 
 import Link from 'next/link'
 import React from 'react'
-import clsx from 'clsx'
 import { Media } from '@/components/Media'
 import { Price } from '@/components/Price'
 
@@ -35,24 +34,26 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
   return (
     <Link className="relative inline-block h-full w-full group" href={`/products/${product.slug}`}>
       {image ? (
-        <Media
-          className={clsx(
-            'relative aspect-square object-cover border rounded-2xl p-8 bg-primary-foreground',
-          )}
-          height={80}
-          imgClassName={clsx('h-full w-full object-cover rounded-2xl', {
-            'transition duration-300 ease-in-out group-hover:scale-102': true,
-          })}
-          resource={image}
-          width={80}
-        />
-      ) : null}
+        <div className="relative overflow-hidden aspect-[3/4] bg-secondary">
+          <Media
+            className="absolute inset-0 w-full h-full"
+            height={600}
+            imgClassName="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+            resource={image}
+            width={400}
+          />
+        </div>
+      ) : (
+        <div className="aspect-[3/4] bg-secondary" />
+      )}
 
-      <div className="font-mono text-primary/50 group-hover:text-primary flex justify-between items-center mt-4">
-        <div>{title}</div>
+      <div className="mt-4 flex justify-between items-start gap-4">
+        <div className="font-serif text-lg font-light tracking-wide text-foreground leading-snug">
+          {title}
+        </div>
 
         {typeof price === 'number' && (
-          <div className="">
+          <div className="font-mono text-xs text-muted-foreground pt-1 shrink-0">
             <Price amount={price} />
           </div>
         )}
