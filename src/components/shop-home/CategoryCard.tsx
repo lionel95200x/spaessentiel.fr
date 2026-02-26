@@ -15,7 +15,7 @@ export function CategoryCard({ category }: { category: Category }) {
   const image = typeof category.image === 'object' ? (category.image as Media) : null
 
   return (
-    <Link href={`/shop?category=${category.slug}`}>
+    <Link href={`/category/${category.slug}`}>
       <ShopCategoryCardRoot>
         {image ? (
           <MediaComponent

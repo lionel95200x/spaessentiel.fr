@@ -5,6 +5,7 @@ import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
 import { RelatedProducts } from '@/components/product/RelatedProducts'
 import {
+  ProductBadge,
   ProductPageBack,
   ProductPageContainer,
   ProductPageGalleryCol,
@@ -29,7 +30,8 @@ export function Product({ product, gallery, relatedProducts }: Props) {
       <ProductPageContainer>
         <ProductPageBack />
         <ProductPageGrid>
-          <ProductPageGalleryCol>
+          <ProductPageGalleryCol className="relative">
+            <ProductBadge>Top Vente</ProductBadge>
             <Suspense fallback={null}>
               {Boolean(gallery.length) && <Gallery gallery={gallery} />}
             </Suspense>

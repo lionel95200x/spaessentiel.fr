@@ -112,7 +112,21 @@ function ProductRelatedItem({ className, ...props }: React.ComponentProps<'li'>)
   )
 }
 
+function ProductBadge({ className, ...props }: React.ComponentProps<'span'>) {
+  return (
+    <span
+      data-slot="product-badge"
+      className={cn(
+        'absolute top-2 left-2 z-10 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground',
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
 export {
+  ProductBadge,
   ProductBannerSection,
   ProductPageBack,
   ProductPageContainer,

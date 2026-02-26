@@ -207,6 +207,26 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       hasMany: true,
       relationTo: 'categories',
     },
+    {
+      name: 'supplierUrl',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+      access: {
+        read: ({ req: { user } }) => Boolean(user?.roles?.includes('admin')),
+      },
+    },
+    {
+      name: 'supplierPrice',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+      },
+      access: {
+        read: ({ req: { user } }) => Boolean(user?.roles?.includes('admin')),
+      },
+    },
     slugField(),
   ],
 })

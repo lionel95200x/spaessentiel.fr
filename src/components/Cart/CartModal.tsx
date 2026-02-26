@@ -16,11 +16,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+import { Product, VariantOption } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
-import { Button } from '@/components/ui/button'
-import { Product } from '@/payload-types'
 
 export function CartModal() {
   const { cart } = useCart()
@@ -54,7 +54,7 @@ export function CartModal() {
         {!cart || cart?.items?.length === 0 ? (
           <div className="text-center flex flex-col items-center gap-2">
             <ShoppingCart className="h-16" />
-            <p className="text-center text-2xl font-bold">Your cart is empty.</p>
+            <p className="text-center text-2xl font-bold">Votre panier est vide</p>
           </div>
         ) : (
           <div className="grow flex px-4">
@@ -85,14 +85,14 @@ export function CartModal() {
                   if (isVariant) {
                     price = variant?.priceInUSD
 
-                    const imageVariant = product.gallery?.find((item) => {
+                    const imageVariant = product.gallery?.find((item: NonNullable<Product['gallery']>[number]) => {
                       if (!item.variantOption) return false
                       const variantOptionID =
                         typeof item.variantOption === 'object'
                           ? item.variantOption.id
                           : item.variantOption
 
-                      const hasMatch = variant?.options?.some((option) => {
+                      const hasMatch = variant?.options?.some((option: number | VariantOption) => {
                         if (typeof option === 'object') return option.id === variantOptionID
                         else return option === variantOptionID
                       })
@@ -132,7 +132,7 @@ export function CartModal() {
                             {isVariant && variant ? (
                               <p className="text-sm text-neutral-500 dark:text-neutral-400 capitalize">
                                 {variant.options
-                                  ?.map((option) => {
+                                  ?.map((option: number | VariantOption) => {
                                     if (typeof option === 'object') return option.label
                                     return null
                                   })

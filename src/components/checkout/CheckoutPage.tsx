@@ -22,7 +22,7 @@ import { FormItem } from '@/components/forms/FormItem'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cssVariables } from '@/cssVariables'
-import { Address } from '@/payload-types'
+import { Address, Product, VariantOption } from '@/payload-types'
 import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { toast } from 'sonner'
 
@@ -373,14 +373,14 @@ export const CheckoutPage: React.FC = () => {
               if (isVariant) {
                 price = variant?.priceInUSD
 
-                const imageVariant = product.gallery?.find((item) => {
+                const imageVariant = product.gallery?.find((item: NonNullable<Product['gallery']>[number]) => {
                   if (!item.variantOption) return false
                   const variantOptionID =
                     typeof item.variantOption === 'object'
                       ? item.variantOption.id
                       : item.variantOption
 
-                  const hasMatch = variant?.options?.some((option) => {
+                  const hasMatch = variant?.options?.some((option: number | VariantOption) => {
                     if (typeof option === 'object') return option.id === variantOptionID
                     else return option === variantOptionID
                   })
@@ -408,7 +408,7 @@ export const CheckoutPage: React.FC = () => {
                       {variant && typeof variant === 'object' && (
                         <p className="text-sm font-mono text-primary/50 tracking-widest">
                           {variant.options
-                            ?.map((option) => {
+                            ?.map((option: number | VariantOption) => {
                               if (typeof option === 'object') return option.label
                               return null
                             })

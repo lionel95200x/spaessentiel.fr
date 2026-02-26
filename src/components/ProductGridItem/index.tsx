@@ -1,5 +1,6 @@
 import type { Product, Variant } from '@/payload-types'
 
+import { ProductBadge } from '@/components/ui/product-layout'
 import Link from 'next/link'
 import React from 'react'
 import { Media } from '@/components/Media'
@@ -33,6 +34,7 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
 
   return (
     <Link className="relative inline-block h-full w-full group" href={`/products/${product.slug}`}>
+      <ProductBadge>Top Vente</ProductBadge>
       {image ? (
         <div className="relative overflow-hidden aspect-[3/4] bg-secondary">
           <Media

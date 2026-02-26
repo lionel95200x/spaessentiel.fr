@@ -1,6 +1,7 @@
 import type { Media, Product, ThreeItemGridBlock as ThreeItemGridBlockProps } from '@/payload-types'
 
 import { GridTileImage } from '@/components/Grid/tile'
+import { ProductBadge } from '@/components/ui/product-layout'
 import Link from 'next/link'
 import React from 'react'
 import type { DefaultDocumentIDType } from 'payload'
@@ -24,6 +25,7 @@ export const ThreeItemGridItem: React.FC<Props> = ({ item, size }) => {
     >
       <Link className="relative block aspect-square h-full w-full" href={`/products/${item.slug}`}>
         <GridTileImage
+          badge={<ProductBadge>Top Vente</ProductBadge>}
           label={{
             amount: price!,
             position: size === 'full' ? 'center' : 'bottom',

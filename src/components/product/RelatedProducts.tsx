@@ -1,6 +1,7 @@
 import type { Media, Product } from '@/payload-types'
 
 import { GridTileImage } from '@/components/Grid/tile'
+import { ProductBadge } from '@/components/ui/product-layout'
 import {
   ProductRelatedItem,
   ProductRelatedList,
@@ -20,6 +21,7 @@ export function RelatedProducts({ products }: { products: Product[] }) {
           <ProductRelatedItem key={product.id}>
             <Link href={`/products/${product.slug}`} className="relative block h-full w-full">
               <GridTileImage
+                badge={<ProductBadge>Top Vente</ProductBadge>}
                 label={{
                   amount: product.priceInUSD!,
                   title: product.title,

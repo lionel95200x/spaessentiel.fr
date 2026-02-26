@@ -306,6 +306,8 @@ export interface Product {
     description?: string | null;
   };
   categories?: (number | Category)[] | null;
+  supplierUrl?: string | null;
+  supplierPrice?: number | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -603,6 +605,15 @@ export interface Category {
    */
   generateSlug?: boolean | null;
   slug: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1367,6 +1378,15 @@ export interface CategoriesSelect<T extends boolean = true> {
   image?: T;
   generateSlug?: T;
   slug?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1635,6 +1655,8 @@ export interface ProductsSelect<T extends boolean = true> {
         description?: T;
       };
   categories?: T;
+  supplierUrl?: T;
+  supplierPrice?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

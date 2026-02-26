@@ -2,7 +2,7 @@ import { Media } from '@/components/Media'
 import { OrderStatus } from '@/components/OrderStatus'
 import { Price } from '@/components/Price'
 import { Button } from '@/components/ui/button'
-import { Media as MediaType, Order, Product, Variant } from '@/payload-types'
+import { Media as MediaType, Order, Product, Variant, VariantOption } from '@/payload-types'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import Link from 'next/link'
 
@@ -37,12 +37,12 @@ export const ProductItem: React.FC<Props> = ({
   const isVariant = Boolean(variant) && typeof variant === 'object'
 
   if (isVariant) {
-    const imageVariant = product.gallery?.find((item) => {
+    const imageVariant = product.gallery?.find((item: NonNullable<Product['gallery']>[number]) => {
       if (!item.variantOption) return false
       const variantOptionID =
         typeof item.variantOption === 'object' ? item.variantOption.id : item.variantOption
 
-      const hasMatch = variant?.options?.some((option) => {
+      const hasMatch = variant?.options?.some((option: number | VariantOption) => {
         if (typeof option === 'object') return option.id === variantOptionID
         else return option === variantOptionID
       })

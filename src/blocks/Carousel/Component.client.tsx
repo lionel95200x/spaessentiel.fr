@@ -6,6 +6,7 @@ import AutoScroll from 'embla-carousel-auto-scroll'
 import Link from 'next/link'
 import React from 'react'
 import { GridTileImage } from '@/components/Grid/tile'
+import { ProductBadge } from '@/components/ui/product-layout'
 
 export const CarouselClient: React.FC<{ products: Product[] }> = async ({ products }) => {
   if (!products?.length) return null
@@ -34,6 +35,7 @@ export const CarouselClient: React.FC<{ products: Product[] }> = async ({ produc
           >
             <Link className="relative h-full w-full" href={`/products/${product.slug}`}>
               <GridTileImage
+                badge={<ProductBadge>Top Vente</ProductBadge>}
                 label={{
                   amount: product.priceInUSD!,
                   title: product.title,
