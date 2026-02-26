@@ -1,26 +1,33 @@
-import type { Footer } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
+import {
+  FooterColumn,
+  FooterColumnItem,
+  FooterColumnList,
+  FooterSectionTitle,
+} from '@/components/ui/footer-layout'
+import Link from 'next/link'
 import React from 'react'
 
-interface Props {
-  menu: Footer['navItems']
+type NavLink = {
+  label: string
+  href: string
 }
 
-export function FooterMenu({ menu }: Props) {
-  if (!menu?.length) return null
+type Props = {
+  title: string
+  links: NavLink[]
+}
 
+export function FooterNavColumn({ title, links }: Props) {
   return (
-    <nav>
-      <ul>
-        {menu.map((item) => {
-          return (
-            <li key={item.id}>
-              <CMSLink appearance="link" {...item.link} />
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
+    <FooterColumn>
+      <FooterSectionTitle>{title}</FooterSectionTitle>
+      <FooterColumnList>
+        {links.map((link) => (
+          <FooterColumnItem key={link.href}>
+            <Link href={link.href}>{link.label}</Link>
+          </FooterColumnItem>
+        ))}
+      </FooterColumnList>
+    </FooterColumn>
   )
 }

@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description: 'Découvrez notre sélection de spas, saunas, hammams et bains balnéo. Créez votre espace bien-être sur mesure.',
   images: [
     {
-      url: 'https://payloadcms.com/images/og-image.jpg',
+      url: '/og-image.jpg',
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Spa Essentiel',
+  title: 'Spa Essentiel',
 }
 
 export const mergeOpenGraph = (og?: Partial<Metadata['openGraph']>): Metadata['openGraph'] => {

@@ -105,7 +105,7 @@ export function AddToCart({ product }: Props) {
       onClick={addToCart}
       type="submit"
     >
-      Add To Cart
+      Ajouter au panier
     </Button>
   )
 }
