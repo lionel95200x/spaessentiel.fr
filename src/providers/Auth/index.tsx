@@ -22,6 +22,7 @@ type Logout = () => Promise<void>
 type AuthContext = {
   create: Create
   forgotPassword: ForgotPassword
+  hasInitialized: boolean
   login: Login
   logout: Logout
   resetPassword: ResetPassword
@@ -34,6 +35,7 @@ const Context = createContext({} as AuthContext)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>()
+  const [hasInitialized, setHasInitialized] = useState(false)
 
   // used to track the single event of logging in or logging out
   // useful for `useEffect` hooks that should only run once
@@ -116,6 +118,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
+    const controller = new AbortController()
+
     const fetchMe = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
@@ -124,6 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             'Content-Type': 'application/json',
           },
           method: 'GET',
+          signal: controller.signal,
         })
 
         if (res.ok) {
@@ -131,15 +136,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(meUser || null)
           setStatus(meUser ? 'loggedIn' : undefined)
         } else {
-          throw new Error('An error occurred while fetching your account.')
+          setUser(null)
         }
       } catch (e) {
-        setUser(null)
-        throw new Error('An error occurred while fetching your account.')
+        if (!controller.signal.aborted) {
+          setUser(null)
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setHasInitialized(true)
+        }
       }
     }
 
     void fetchMe()
+
+    return () => controller.abort()
   }, [])
 
   const forgotPassword = useCallback<ForgotPassword>(async (args) => {
@@ -200,6 +212,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         create,
         forgotPassword,
+        hasInitialized,
         login,
         logout,
         resetPassword,

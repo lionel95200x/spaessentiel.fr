@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { User } from '@/payload-types'
 import { useAuth } from '@/providers/Auth'
-import { useRouter } from 'next/navigation'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -34,8 +33,6 @@ export const AccountForm: React.FC = () => {
 
   const password = useRef({})
   password.current = watch('password', '')
-
-  const router = useRouter()
 
   const onSubmit = useCallback(
     async (data: FormData) => {
@@ -70,24 +67,16 @@ export const AccountForm: React.FC = () => {
   )
 
   useEffect(() => {
-    if (user === null) {
-      router.push(
-        `/login?error=${encodeURIComponent(
-          'You must be logged in to view this page.',
-        )}&redirect=${encodeURIComponent('/account')}`,
-      )
-    }
+    if (!user) return
 
     // Once user is loaded, reset form to have default values
-    if (user) {
-      reset({
-        name: user.name,
-        email: user.email,
-        password: '',
-        passwordConfirm: '',
-      })
-    }
-  }, [user, router, reset, changePassword])
+    reset({
+      name: user.name,
+      email: user.email,
+      password: '',
+      passwordConfirm: '',
+    })
+  }, [user, reset, changePassword])
 
   return (
     <form className="max-w-xl" onSubmit={handleSubmit(onSubmit)}>
