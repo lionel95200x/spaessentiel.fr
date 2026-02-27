@@ -349,6 +349,80 @@ function ShopCategoryCardSubtitle({ className, ...props }: React.ComponentProps<
   )
 }
 
+// ─── Reassurance Bar ─────────────────────────────────────────────────────────
+
+function ReassuranceBar({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="reassurance-bar"
+      className={cn('border-y bg-background', className)}
+      {...props}
+    />
+  )
+}
+
+function ReassuranceBarGrid({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="reassurance-bar-grid"
+      className={cn(
+        'container grid grid-cols-2 divide-x divide-y lg:grid-cols-4 lg:divide-y-0',
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
+function ReassuranceBarItem({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="reassurance-bar-item"
+      className={cn('flex flex-col items-center gap-2 px-6 py-6 text-center', className)}
+      {...props}
+    />
+  )
+}
+
+function ReassuranceBarIcon({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="reassurance-bar-icon"
+      className={cn('text-foreground', className)}
+      {...props}
+    />
+  )
+}
+
+function ReassuranceBarTitle({ className, ...props }: React.ComponentProps<'p'>) {
+  return (
+    <p
+      data-slot="reassurance-bar-title"
+      className={cn('font-serif text-sm font-light', className)}
+      {...props}
+    />
+  )
+}
+
+function ReassuranceBarSubtitle({ className, ...props }: React.ComponentProps<'p'>) {
+  return (
+    <p
+      data-slot="reassurance-bar-subtitle"
+      className={cn('font-mono text-[0.6rem] uppercase tracking-widest text-muted-foreground', className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  ReassuranceBar,
+  ReassuranceBarGrid,
+  ReassuranceBarItem,
+  ReassuranceBarIcon,
+  ReassuranceBarTitle,
+  ReassuranceBarSubtitle,
+}
+
 export {
   FeaturedProductCardRoot,
   ShopHeroImage,

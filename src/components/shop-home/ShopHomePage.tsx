@@ -2,6 +2,7 @@ import type { Category, Product } from '@/payload-types'
 
 import { CategoryCard } from '@/components/shop-home/CategoryCard'
 import { FeaturedProductCard } from '@/components/shop-home/FeaturedProductCard'
+import { ReassuranceBar } from '@/components/shop-home/ReassuranceBar'
 import { Button } from '@/components/ui/button'
 import {
   FeaturedProductGrid,
@@ -48,6 +49,9 @@ export function ShopHomePage({ featuredProducts, categories }: Props) {
           </Button>
         </ShopHeroContent>
       </ShopHeroSection>
+
+      {/* Section 1.5 — Réassurance */}
+      <ReassuranceBar />
 
       {/* Section 2 — Produits phares */}
       {featuredProducts.length > 0 && (
