@@ -32,6 +32,7 @@
     "@payloadcms/plugin-nested-docs": "^3.77.0",
     "@payloadcms/plugin-seo": "3.77.0",
     "@payloadcms/richtext-lexical": "3.77.0",
+    "@payloadcms/storage-s3": "^3.77.0",
     "@payloadcms/translations": "3.77.0",
     "@payloadcms/ui": "3.77.0",
     "@radix-ui/react-accordion": "1.2.11",

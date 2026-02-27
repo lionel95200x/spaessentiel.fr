@@ -4,7 +4,10 @@
       "Bash(npm run build)",
       "WebFetch(domain:payloadcms.com)",
       "WebFetch(domain:github.com)",
-      "Bash(pnpm add @payloadcms/plugin-nested-docs)"
+      "Bash(pnpm add @payloadcms/plugin-nested-docs)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(pnpm add @payloadcms/storage-s3)"
     ],
     "additionalDirectories": [
       "/Users/lionelbueno/Documents/Projet/solbad/src/app/(app)/category"

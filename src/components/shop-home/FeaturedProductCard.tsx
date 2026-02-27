@@ -11,7 +11,11 @@ import {
 import Link from 'next/link'
 
 export function FeaturedProductCard({ product }: { product: Product }) {
-  const image = typeof product.meta?.image === 'object' ? (product.meta.image as Media) : null
+  const firstGalleryItem = product.gallery?.[0]
+  const image =
+    firstGalleryItem && typeof firstGalleryItem.image === 'object'
+      ? (firstGalleryItem.image as Media)
+      : null
 
   return (
     <Link href={`/products/${product.slug}`}>

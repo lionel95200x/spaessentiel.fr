@@ -16,6 +16,10 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: `${process.env.S3_BUCKET}.s3.${process.env.S3_REGION}.amazonaws.com`,
+        protocol: 'https',
+      },
     ],
   },
   reactStrictMode: true,
