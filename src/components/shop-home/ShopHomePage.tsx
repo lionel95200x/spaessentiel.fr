@@ -71,7 +71,7 @@ export function ShopHomePage({ featuredProducts, categories }: Props) {
       {/* Section 3 — Éditoriale / Histoire */}
       <ShopSplitSection>
         <ShopSplitImageCol>
-          <ShopSplitImage src="/images/editorial-sauna.jpg" alt="Solbad — intérieur sauna" />
+          <ShopSplitImage src="/images/editorial-sauna.jpg" alt="Spa Essentiel — intérieur sauna" />
         </ShopSplitImageCol>
         <ShopSplitContentCol>
           <ShopSplitTitle>Une tradition millénaire, réinventée</ShopSplitTitle>

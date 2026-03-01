@@ -20,6 +20,7 @@ export function HeaderClient({ header }: Props) {
   const menu = header.navItems || []
   const pathname = usePathname()
 
+  console.log('HeaderClient rendered with menu:', menu)
   return (
     <div className="relative z-20 border-b">
       <nav className="flex items-center md:items-end justify-between container pt-2">
