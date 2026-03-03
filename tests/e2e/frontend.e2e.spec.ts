@@ -1,5 +1,5 @@
+import { expect, Page, test } from '@playwright/test'
 import path from 'path'
-import { test, expect, Page } from '@playwright/test'
 import { fileURLToPath } from 'url'
 
 const filename = fileURLToPath(import.meta.url)
@@ -375,7 +375,7 @@ test.describe('Frontend', () => {
     await saveAndConfirmSuccess(page)
 
     await checkout(page, testPaymentDetails)
-    const errorMessage = page.locator('text=This product is out of stock')
+    const errorMessage = page.locator('text=This product is Plus en stock')
     await expect(errorMessage).toBeVisible()
   })
 

@@ -108,7 +108,7 @@ export function VariantSelector({ product }: { product: Product }) {
                       scroll: false,
                     })
                   }}
-                  title={`${option.label} ${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
+                  title={`${option.label} ${!isAvailableForSale ? ' (Plus en stock)' : ''}`}
                 >
                   {option.label}
                 </Button>

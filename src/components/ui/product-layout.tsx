@@ -112,6 +112,16 @@ function ProductRelatedItem({ className, ...props }: React.ComponentProps<'li'>)
   )
 }
 
+function ProductStatusLabel({ className, ...props }: React.ComponentProps<'p'>) {
+  return (
+    <p
+      data-slot="product-status-label"
+      className={cn('font-mono text-sm font-medium uppercase', className)}
+      {...props}
+    />
+  )
+}
+
 function ProductBadge({ className, ...props }: React.ComponentProps<'span'>) {
   return (
     <span
@@ -137,4 +147,5 @@ export {
   ProductRelatedList,
   ProductRelatedSection,
   ProductRelatedTitle,
+  ProductStatusLabel,
 }

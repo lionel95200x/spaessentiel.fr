@@ -1,5 +1,6 @@
 import type { Media } from '@/payload-types'
 
+import { Breadcrumb } from '@/components/Breadcrumb'
 import { Grid } from '@/components/Grid'
 import { Media as MediaComponent } from '@/components/Media'
 import { ProductGridItem } from '@/components/ProductGridItem'
@@ -102,6 +103,19 @@ export default async function CategoryPage({ params }: Props) {
           )}
         </ShopHeroContent>
       </ShopHeroSection>
+
+      <Breadcrumb
+        items={[
+          { label: 'Accueil', href: '/' },
+          // Payload nested-docs génère `category.breadcrumbs` automatiquement :
+          // chaque entrée a { label, url } représentant le chemin complet jusqu'à
+          // la catégorie courante. On l'utilise ici si disponible.
+          ...((category as any).breadcrumbs ?? []).map((b: { label?: string | null; url?: string | null }) => ({
+            label: b.label ?? '',
+            href: b.url ?? undefined,
+          })),
+        ]}
+      />
 
       <ShopSection>
         <ShopSectionHeader>

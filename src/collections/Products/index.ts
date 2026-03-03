@@ -52,6 +52,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     priceInUSD: true,
     inventory: true,
     meta: true,
+    isBestseller: true,
   },
   fields: [
     { name: 'title', type: 'text', required: true },
@@ -225,6 +226,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       },
       access: {
         read: ({ req: { user } }) => Boolean(user?.roles?.includes('admin')),
+      },
+    },
+    {
+      name: 'isBestseller',
+      type: 'checkbox',
+      label: 'Best-seller',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Affiche le badge "Top Vente" sur ce produit',
       },
     },
     slugField(),

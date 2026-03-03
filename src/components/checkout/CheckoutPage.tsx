@@ -95,7 +95,7 @@ export const CheckoutPage: React.FC = () => {
         let errorMessage = 'An error occurred while initiating payment.'
 
         if (errorData?.cause?.code === 'OutOfStock') {
-          errorMessage = 'One or more items in your cart are out of stock.'
+          errorMessage = 'One or more items in your cart are Plus en stock.'
         }
 
         setError(errorMessage)

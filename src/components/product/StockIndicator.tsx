@@ -1,5 +1,7 @@
 'use client'
+
 import { Product, Variant } from '@/payload-types'
+import { ProductStatusLabel } from '@/components/ui/product-layout'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
@@ -43,10 +45,17 @@ export const StockIndicator: React.FC<Props> = ({ product }) => {
     return null
   }
 
-  return (
-    <div className="uppercase font-mono text-sm font-medium text-gray-500">
-      {stockQuantity < 10 && stockQuantity > 0 && <p>Only {stockQuantity} left in stock</p>}
-      {(stockQuantity === 0 || !stockQuantity) && <p>Out of stock</p>}
-    </div>
-  )
+  if (stockQuantity === 0 || !stockQuantity) {
+    return <ProductStatusLabel className="text-destructive">Rupture de stock</ProductStatusLabel>
+  }
+
+  if (stockQuantity < 10) {
+    return (
+      <ProductStatusLabel className="text-warning">
+        Plus que {stockQuantity} en stock
+      </ProductStatusLabel>
+    )
+  }
+
+  return <ProductStatusLabel className="text-success">En stock</ProductStatusLabel>
 }

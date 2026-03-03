@@ -3,6 +3,7 @@ import type { Category, Product } from '@/payload-types'
 import { CategoryCard } from '@/components/shop-home/CategoryCard'
 import { FeaturedProductCard } from '@/components/shop-home/FeaturedProductCard'
 import { ReassuranceBar } from '@/components/shop-home/ReassuranceBar'
+import { Testimonials } from '@/components/shop-home/Testimonials'
 import { Button } from '@/components/ui/button'
 import {
   FeaturedProductGrid,
@@ -86,11 +87,14 @@ export function ShopHomePage({ featuredProducts, categories }: Props) {
         </ShopSplitContentCol>
       </ShopSplitSection>
 
-      {/* Section 4 — Catégories */}
+      {/* Section 4 — Témoignages */}
+      <Testimonials />
+
+      {/* Section 5 — Catégories */}
       {categories.length > 0 && (
         <ShopSection>
           <ShopSectionHeader>
-            <ShopSectionTitle>Explorer par Catégorie</ShopSectionTitle>
+            <ShopSectionTitle>Découvrez nos univers</ShopSectionTitle>
           </ShopSectionHeader>
           <ShopCategoryGrid>
             {categories.map((category) => (

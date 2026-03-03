@@ -1,4 +1,4 @@
-import type { Media, Product } from '@/payload-types'
+import type { Category, Media, Product } from '@/payload-types'
 
 import { Product as ProductComponent } from '@/components/product/Product'
 import configPromise from '@payload-config'
@@ -102,18 +102,45 @@ export default async function ProductPage({ params }: Args) {
   const relatedProducts =
     (product.relatedProducts?.filter((p) => typeof p === 'object') as Product[]) ?? []
 
+  const category =
+    (product.categories?.find((c) => typeof c === 'object') as Category | undefined) ?? null
+
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'Boutique', item: `${baseUrl}/shop` },
+      ...(category
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: category.title,
+              item: `${baseUrl}/category/${category.slug}`,
+            },
+          ]
+        : []),
+      { '@type': 'ListItem', position: category ? 4 : 3, name: product.title },
+    ],
+  }
+
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         type="application/ld+json"
       />
       <ProductComponent
         product={product}
         gallery={gallery as NonNullable<Product['gallery']>}
         relatedProducts={relatedProducts}
+        category={category}
       />
     </>
   )

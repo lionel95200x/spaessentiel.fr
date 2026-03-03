@@ -309,6 +309,10 @@ export interface Product {
   supplierUrl?: string | null;
   supplierPrice?: number | null;
   /**
+   * Affiche le badge "Top Vente" sur ce produit
+   */
+  isBestseller?: boolean | null;
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
@@ -1694,6 +1698,7 @@ export interface ProductsSelect<T extends boolean = true> {
   categories?: T;
   supplierUrl?: T;
   supplierPrice?: T;
+  isBestseller?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
