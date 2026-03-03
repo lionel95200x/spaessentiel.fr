@@ -7,10 +7,46 @@
       "Bash(pnpm add @payloadcms/plugin-nested-docs)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__query-docs",
-      "Bash(pnpm add @payloadcms/storage-s3)"
+      "Bash(pnpm add @payloadcms/storage-s3)",
+      "Bash(pnpm build)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(curl -s \"http://localhost:3022/api/pages/3?depth=2&draft=false&locale=undefined&trash=false\")",
+      "Bash(curl -s \"http://localhost:3022/api/pages?depth=0&draft=false&locale=undefined&trash=false&limit=50\")",
+      "Bash(curl -s \"http://localhost:3022/api/pages?depth=0\")",
+      "Bash(curl -s \"http://localhost:3022/api/\")",
+      "Bash(curl -s \"http://localhost:3022/api/globals/header\")",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiY29sbGVjdGlvbiI6InVzZXJzIiwiZW1haWwiOiJjbGF1ZGVhZG1pbkBnbWFpbC5jb20iLCJzaWQiOiJmZjM1MjVkNi1hZDQyLTQ4YjktOGRlOC1kNzcyODc3MmU5MmUiLCJpYXQiOjE3NzIxODI5ODIsImV4cCI6MTc3MzM5MjU4Mn0.7xkRy6yYQfc3w5TrALaBxsu2Kh1lQweG3xKQBtGwPWw\")",
+      "Bash(__NEW_LINE_a2e501fe9601d172__ curl -s -X POST \"http://localhost:3022/api/pages\" -H \"Content-Type: application/json\" -H \"Authorization: JWT $TOKEN\" -d '{:*)",
+      "Bash(__NEW_LINE_6627640cee3c8474__ curl -s \"http://localhost:3022/api/users/me\" -H \"Authorization: JWT $TOKEN\")",
+      "Bash(xargs cat)",
+      "Read(//dev/**)",
+      "Bash(curl -s -b /tmp/payload_cookies.txt \"http://localhost:3022/api/media?where[filename][equals]=hero-sauna.jpg\")",
+      "Bash(curl -s -c /tmp/payload_cookies.txt -X POST \"http://localhost:3022/api/users/login\" -H \"Content-Type: application/json\" -d '{\"\"email\"\":\"\"claudeadmin@gmail.com\"\",\"\"password\"\":\"\"claudeadmin\"\"}')",
+      "Bash(curl -s \"http://localhost:3022/api/pages?limit=100&depth=0\" -b /tmp/payload_cookies.txt)",
+      "Bash(curl -s -X POST \"http://localhost:3022/api/pages\" -b /tmp/payload_cookies.txt -H \"Content-Type: application/json\" -d '{:*)",
+      "Bash(curl -s \"http://localhost:3022/api/pages?where[slug][equals]=faq&depth=0\" -b /tmp/payload_cookies.txt)",
+      "Bash(curl -s \"http://localhost:3022/api/pages/5?depth=0\" -b /tmp/payload_cookies.txt)",
+      "Bash(curl -s \"http://localhost:3022/api/globals/header?depth=2&draft=false&locale=undefined&trash=false\" -b /tmp/payload_cookies.txt)",
+      "WebFetch(domain:www.alibaba.com)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_run_code",
+      "mcp__playwright__browser_drag",
+      "mcp__playwright__browser_snapshot",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiY29sbGVjdGlvbiI6InVzZXJzIiwiZW1haWwiOiJjbGF1ZGVhZG1pbkBnbWFpbC5jb20iLCJzaWQiOiIwMjg5YmQxOC03YTViLTQzMWYtYTczMS0wNmFiZDczMDBiYmIiLCJpYXQiOjE3NzIyMDcxMDgsImV4cCI6MTc3MzQxNjcwOH0.__M29jlFandZhniR22IZja7B7fg15WerIAkwKKZ3gSI\")",
+      "Bash(__NEW_LINE_7dc2ad655a8193db__ curl -s -X PATCH \"http://localhost:3022/api/products/8\" -b /tmp/payload_cookies.txt -H \"Authorization: JWT $TOKEN\" -H \"Content-Type: application/json\" -d '{:*)",
+      "Bash(__NEW_LINE_ddde307f015b44bb__ python3 -c \":*)",
+      "Bash(__NEW_LINE_172f08bf7a27ec1c__ curl -s -X PATCH \"http://localhost:3022/api/products/8\" -b /tmp/payload_cookies.txt -H \"Authorization: JWT $TOKEN\" -H \"Content-Type: application/json\" -d @/tmp/desc_payload.json)",
+      "Bash(__NEW_LINE_d76850d5606f7b31__ python3:*)",
+      "Bash(__NEW_LINE_133af103dfae8b92__ curl -s -X PATCH \"http://localhost:3022/api/products/8\" -b /tmp/payload_cookies.txt -H \"Authorization: JWT $TOKEN\" -H \"Content-Type: application/json\" -d @/tmp/desc2.json)",
+      "Bash(pnpm generate:types)",
+      "Bash(npx payload generate:types)",
+      "Bash(echo \"EXIT: $?\")"
     ],
     "additionalDirectories": [
-      "/Users/lionelbueno/Documents/Projet/solbad/src/app/(app)/category"
+      "/Users/lionelbueno/Documents/Projet/solbad/src/app/(app)/category",
+      "/Users/lionelbueno/Documents/Projet/solbad/.claude/skills",
+      "/Users/lionelbueno/Documents/Projet/solbad/.next/cache"
     ]
   }
 }

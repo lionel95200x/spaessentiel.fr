@@ -7,6 +7,9 @@ import { ThreeItemGrid } from '@/blocks/ThreeItemGrid/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { adminOnly } from '@/access/adminOnly'
 import { Archive } from '@/blocks/ArchiveBlock/config'
+import { CategoryShowcaseBlock } from '@/blocks/CategoryShowcaseBlock/config'
+import { ReassuranceBlock } from '@/blocks/ReassuranceBlock/config'
+import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/config'
 import { CallToAction } from '@/blocks/CallToAction/config'
 import { Content } from '@/blocks/Content/config'
 import { FormBlock } from '@/blocks/Form/config'
@@ -92,6 +95,9 @@ export const Pages: CollectionConfig = {
                 CallToAction,
                 Content,
                 MediaBlock,
+                CategoryShowcaseBlock,
+                ReassuranceBlock,
+                TestimonialsBlock,
                 Archive,
                 Carousel,
                 ThreeItemGrid,

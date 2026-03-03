@@ -1,4 +1,5 @@
 import { Grid } from '@/components/Grid'
+import { NoProductsFound } from '@/components/product/NoProductsFound'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -73,30 +74,30 @@ export default async function ShopPage({ searchParams }: Props) {
       : {}),
   })
 
+  if (products.docs.length === 0) {
+    return (
+      <NoProductsFound
+        title={searchValue ? `Aucun résultat pour "${searchValue}"` : 'Aucun produit disponible'}
+        subtitle="Découvrez toute notre sélection"
+      />
+    )
+  }
+
   const resultsText = products.docs.length > 1 ? 'results' : 'result'
 
   return (
     <div>
       {searchValue ? (
         <p className="mb-4">
-          {products.docs?.length === 0
-            ? 'There are no products that match '
-            : `Showing ${products.docs.length} ${resultsText} for `}
+          {`Showing ${products.docs.length} ${resultsText} for `}
           <span className="font-bold">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
-
-      {!searchValue && products.docs?.length === 0 && (
-        <p className="mb-4">No products found. Please try different filters.</p>
-      )}
-
-      {products?.docs.length > 0 ? (
-        <Grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.docs.map((product) => {
-            return <ProductGridItem key={product.id} product={product} />
-          })}
-        </Grid>
-      ) : null}
+      <Grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.docs.map((product) => (
+          <ProductGridItem key={product.id} product={product} />
+        ))}
+      </Grid>
     </div>
   )
 }

@@ -30,6 +30,11 @@ export const Categories: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'banner',
+      type: 'upload',
+      relationTo: 'media',
+    },
     slugField({
       position: undefined,
     }),

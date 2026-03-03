@@ -3,6 +3,7 @@ import type { Media } from '@/payload-types'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { Grid } from '@/components/Grid'
 import { Media as MediaComponent } from '@/components/Media'
+import { NoProductsFound } from '@/components/product/NoProductsFound'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import {
   ImagePlaceholder,
@@ -132,7 +133,10 @@ export default async function CategoryPage({ params }: Props) {
             ))}
           </Grid>
         ) : (
-          <p>Aucun produit dans cette catégorie.</p>
+          <NoProductsFound
+            title="Aucun produit dans cette catégorie"
+            subtitle="Découvrez toute notre sélection"
+          />
         )}
       </ShopSection>
     </>

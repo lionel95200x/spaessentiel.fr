@@ -483,6 +483,9 @@ export interface Page {
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
+    | CategoryShowcaseBlock
+    | ReassuranceBlock
+    | TestimonialsBlock
     | ArchiveBlock
     | CarouselBlock
     | ThreeItemGridBlock
@@ -564,6 +567,62 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CategoryShowcaseBlock".
+ */
+export interface CategoryShowcaseBlock {
+  category: number | Category;
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'categoryShowcase';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  description?: string | null;
+  image?: (number | null) | Media;
+  banner?: (number | null) | Media;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReassuranceBlock".
+ */
+export interface ReassuranceBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reassuranceBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonialsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
@@ -595,32 +654,6 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
-  description?: string | null;
-  image?: (number | null) | Media;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1253,6 +1286,9 @@ export interface PagesSelect<T extends boolean = true> {
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        categoryShowcase?: T | CategoryShowcaseBlockSelect<T>;
+        reassuranceBlock?: T | ReassuranceBlockSelect<T>;
+        testimonialsBlock?: T | TestimonialsBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         carousel?: T | CarouselBlockSelect<T>;
         threeItemGrid?: T | ThreeItemGridBlockSelect<T>;
@@ -1329,6 +1365,32 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CategoryShowcaseBlock_select".
+ */
+export interface CategoryShowcaseBlockSelect<T extends boolean = true> {
+  category?: T;
+  limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReassuranceBlock_select".
+ */
+export interface ReassuranceBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
   id?: T;
   blockName?: T;
 }
@@ -1417,6 +1479,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   image?: T;
+  banner?: T;
   generateSlug?: T;
   slug?: T;
   parent?: T;

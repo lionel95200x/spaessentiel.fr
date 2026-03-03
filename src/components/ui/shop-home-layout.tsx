@@ -108,6 +108,18 @@ function ShopHeroSubtitle({ className, ...props }: React.ComponentProps<'p'>) {
   )
 }
 
+// ─── Category Banner (thin) ───────────────────────────────────────────────────
+
+function ShopCategoryBannerSection({ className, ...props }: React.ComponentProps<'section'>) {
+  return (
+    <section
+      data-slot="shop-category-banner-section"
+      className={cn('relative h-64 overflow-hidden', className)}
+      {...props}
+    />
+  )
+}
+
 // ─── Section ─────────────────────────────────────────────────────────────────
 
 function ShopSection({ className, ...props }: React.ComponentProps<'section'>) {
@@ -416,32 +428,22 @@ function ReassuranceBarSubtitle({ className, ...props }: React.ComponentProps<'p
 
 export {
   ReassuranceBar,
-  ReassuranceBarGrid,
-  ReassuranceBarItem,
-  ReassuranceBarIcon,
-  ReassuranceBarTitle,
-  ReassuranceBarSubtitle,
+  ReassuranceBarGrid, ReassuranceBarIcon, ReassuranceBarItem, ReassuranceBarSubtitle, ReassuranceBarTitle
 }
 
 export {
-  FeaturedProductCardRoot,
-  ShopHeroImage,
-  ShopSplitImage,
-  FeaturedProductGrid,
+  FeaturedProductCardRoot, FeaturedProductGrid,
   FeaturedProductImageSlot,
   FeaturedProductPrice,
   FeaturedProductTitle,
-  ImagePlaceholder,
-  ShopCategoryCardContent,
+  ImagePlaceholder, ShopCategoryBannerSection, ShopCategoryCardContent,
   ShopCategoryCardOverlay,
   ShopCategoryCardRoot,
   ShopCategoryCardSubtitle,
   ShopCategoryCardTitle,
   ShopCategoryGrid,
-  ShopHeroContent,
-  ShopHeroImageSlot,
-  ShopHeroOverlay,
-  ShopHeroSection,
+  ShopHeroContent, ShopHeroImage, ShopHeroImageSlot,
+  ShopHeroOverlay, ShopHeroSection,
   ShopHeroSubtitle,
   ShopHeroTitle,
   ShopSection,
@@ -449,8 +451,8 @@ export {
   ShopSectionTitle,
   ShopSectionViewAll,
   ShopSplitBody,
-  ShopSplitContentCol,
-  ShopSplitImageCol,
+  ShopSplitContentCol, ShopSplitImage, ShopSplitImageCol,
   ShopSplitSection,
-  ShopSplitTitle,
+  ShopSplitTitle
 }
+

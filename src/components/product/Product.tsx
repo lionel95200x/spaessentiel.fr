@@ -33,7 +33,11 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
 
   return (
     <>
-      <Banner src="/images/banner-wood.jpg" alt="Bois chauffant" variant="thin" />
+      {typeof category?.banner === 'object' && category.banner ? (
+        <Banner image={category.banner} variant="thin" />
+      ) : (
+        <Banner src="/images/banner-wood.jpg" alt="Bois chauffant" variant="thin" />
+      )}
 
       <Breadcrumb items={breadcrumbItems} />
 
