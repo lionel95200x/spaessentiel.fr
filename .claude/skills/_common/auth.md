@@ -1,21 +1,34 @@
 # Auth Payload CMS — Credentials partagés
 
 ```
-API:      http://localhost:3022
+BASE_URL: http://localhost:3022
 email:    claudeadmin@gmail.com
 password: claudeadmin
+role:     admin
 ```
 
 ---
 
-## Login → récupérer le TOKEN
+## Login + appel API — Pattern à utiliser
+
+Toujours dans un **seul appel Bash** via un script Python inline :
 
 ```bash
-TOKEN=$(curl -s -X POST "http://localhost:3022/api/users/login" \
-  -H "Content-Type: application/json" \
-  -d '{"email":"claudeadmin@gmail.com","password":"claudeadmin"}' \
-  | python3 -c "import json,sys; print(json.load(sys.stdin)['token'])")
-echo "TOKEN: $TOKEN"
+python3 - << 'EOF'
+import subprocess, json
+
+BASE_URL = "http://localhost:3022"
+
+login = subprocess.run([
+    "curl", "-s", "-X", "POST", f"{BASE_URL}/api/users/login",
+    "-H", "Content-Type: application/json",
+    "-d", '{"email":"claudeadmin@gmail.com","password":"claudeadmin"}'
+], capture_output=True, text=True)
+
+token = json.loads(login.stdout)["token"]
+
+# Suite des appels API avec token...
+EOF
 ```
 
 ---
