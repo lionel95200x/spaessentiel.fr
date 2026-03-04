@@ -54,7 +54,7 @@ export function Testimonials() {
                 <Star key={i} className="size-4 fill-current" aria-hidden="true" />
               ))}
             </TestimonialStars>
-            <TestimonialQuote>"{testimonial.quote}"</TestimonialQuote>
+            <TestimonialQuote>&ldquo;{testimonial.quote}&rdquo;</TestimonialQuote>
             <TestimonialAuthor>
               <TestimonialAuthorName>{testimonial.name}</TestimonialAuthorName>
               <TestimonialAuthorRole>{testimonial.role}</TestimonialAuthorRole>
