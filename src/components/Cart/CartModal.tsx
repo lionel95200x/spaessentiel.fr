@@ -16,6 +16,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { PaymentIcons } from '@/components/checkout/PaymentIcons'
 import { Button } from '@/components/ui/button'
 import { Product, VariantOption } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
@@ -162,6 +163,10 @@ export function CartModal() {
                 })}
               </ul>
 
+              <div className='py-4'>
+                <PaymentIcons />
+
+              </div>
               <div className="px-4">
                 <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                   {typeof cart?.subtotal === 'number' && (
@@ -176,8 +181,7 @@ export function CartModal() {
 
                   <Button asChild>
                     <Link className="w-full" href="/checkout">
-                      Proceed to Checkout
-                    </Link>
+                      Passez au paiement                    </Link>
                   </Button>
                 </div>
               </div>

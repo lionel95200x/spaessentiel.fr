@@ -3,6 +3,7 @@ import { CMSLink } from '@/components/Link'
 import { Cart } from '@/components/Cart'
 import { OpenCartButton } from '@/components/Cart/OpenCart'
 import Link from 'next/link'
+import { User } from 'lucide-react'
 import React, { Suspense } from 'react'
 
 import { MobileMenu } from './MobileMenu'
@@ -32,7 +33,7 @@ export function HeaderClient({ header }: Props) {
         <div className="flex w-full items-end justify-between">
           <div className="flex w-full items-end gap-6 md:w-1/3">
             <Link className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto" href="/">
-              <LogoIcon className="w-6 h-auto" />
+              <LogoIcon className="h-8 w-auto" />
             </Link>
             {menu.length ? (
               <ul className="hidden gap-4 text-sm md:flex md:items-center">
@@ -55,7 +56,10 @@ export function HeaderClient({ header }: Props) {
             ) : null}
           </div>
 
-          <div className="flex justify-end md:w-1/3 gap-4">
+          <div className="flex justify-end md:w-1/3 gap-1 items-end">
+            <Link href="/account" className="relative inline-flex pt-2 pb-6 px-2 text-primary/50 hover:text-primary transition-colors">
+              <User className="h-5 w-5" />
+            </Link>
             <Suspense fallback={<OpenCartButton />}>
               <Cart />
             </Suspense>

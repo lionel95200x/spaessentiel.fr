@@ -584,6 +584,21 @@ export interface Category {
   id: number;
   title: string;
   description?: string | null;
+  subdescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   image?: (number | null) | Media;
   banner?: (number | null) | Media;
   /**
@@ -1478,6 +1493,7 @@ export interface SplitBlockSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  subdescription?: T;
   image?: T;
   banner?: T;
   generateSlug?: T;

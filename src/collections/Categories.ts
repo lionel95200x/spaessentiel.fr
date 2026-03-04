@@ -26,6 +26,10 @@ export const Categories: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'subdescription',
+      type: 'richText',
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'media',

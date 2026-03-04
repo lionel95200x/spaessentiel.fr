@@ -13,6 +13,7 @@ import {
   ProductPageInfoCol,
 } from '@/components/ui/product-layout'
 import { FreeDeliveryBadge, ProductReassurance, TrustpilotBadge } from '@/components/ui/product-reassurance'
+import { CheckoutReassurance } from '@/components/checkout/CheckoutReassurance'
 import { Banner } from '@/components/ui/banner'
 import { Suspense } from 'react'
 
@@ -54,6 +55,7 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
             <FreeDeliveryBadge />
             <ProductReassurance />
             <TrustpilotBadge />
+            <CheckoutReassurance />
           </ProductPageInfoCol>
         </ProductPageGrid>
       </ProductPageContainer>
