@@ -318,6 +318,10 @@ export interface Product {
    */
   isBestseller?: boolean | null;
   /**
+   * Si renseigné, affiche ce prix barré avec le badge "Promo"
+   */
+  compareAtPrice?: number | null;
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
@@ -1830,6 +1834,7 @@ export interface ProductsSelect<T extends boolean = true> {
   weightKg?: T;
   personsCapacity?: T;
   isBestseller?: T;
+  compareAtPrice?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

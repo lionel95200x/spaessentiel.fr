@@ -10,6 +10,7 @@ type BaseProps = {
 
 type PriceFixed = {
   amount: number
+  compareAtPrice?: number
   currencyCode?: string
   highestAmount?: never
   lowestAmount?: never
@@ -17,6 +18,7 @@ type PriceFixed = {
 
 type PriceRange = {
   amount?: never
+  compareAtPrice?: never
   currencyCode?: string
   highestAmount: number
   lowestAmount: number
@@ -26,6 +28,7 @@ type Props = BaseProps & (PriceFixed | PriceRange)
 
 export const Price = ({
   amount,
+  compareAtPrice,
   className,
   highestAmount,
   lowestAmount,
@@ -44,9 +47,15 @@ export const Price = ({
   }, [currencyCodeFromProps, supportedCurrencies])
 
   if (typeof amount === 'number') {
+    const isOnSale = typeof compareAtPrice === 'number' && compareAtPrice > amount
     return (
       <Element className={className} suppressHydrationWarning>
-        {formatCurrency(amount, { currency: currencyToUse })}
+        {isOnSale && (
+          <span className="line-through text-muted-foreground mr-2 text-sm">
+            {formatCurrency(compareAtPrice, { currency: currencyToUse })}
+          </span>
+        )}
+        <span>{formatCurrency(amount, { currency: currencyToUse })}</span>
       </Element>
     )
   }

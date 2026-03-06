@@ -6,7 +6,7 @@ import { Price } from '@/components/Price'
 import { RichText } from '@/components/RichText'
 import { StockIndicator } from '@/components/product/StockIndicator'
 import { VariantSelector } from '@/components/product/VariantSelector'
-import { PersonsCapacityBadge, SupplierName, WeightBadge } from '@/components/ui/product-reassurance'
+import { PersonsCapacityBadge, PremiumBadge, SupplierName, WeightBadge } from '@/components/ui/product-reassurance'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import React, { Suspense } from 'react'
 
@@ -53,6 +53,7 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-3">
+        <PremiumBadge />
         <h1 className="font-serif text-4xl font-light leading-tight tracking-tight">
           {product.title}
         </h1>
@@ -63,7 +64,7 @@ export function ProductDescription({ product }: { product: Product }) {
           {hasVariants ? (
             <Price highestAmount={highestAmount} lowestAmount={lowestAmount} />
           ) : (
-            <Price amount={amount} />
+            <Price amount={amount} compareAtPrice={product.compareAtPrice ?? undefined} />
           )}
         </div>
       </div>
