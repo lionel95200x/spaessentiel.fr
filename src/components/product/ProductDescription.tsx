@@ -6,6 +6,7 @@ import { Price } from '@/components/Price'
 import { RichText } from '@/components/RichText'
 import { StockIndicator } from '@/components/product/StockIndicator'
 import { VariantSelector } from '@/components/product/VariantSelector'
+import { PersonsCapacityBadge, SupplierName, WeightBadge } from '@/components/ui/product-reassurance'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import React, { Suspense } from 'react'
 
@@ -55,6 +56,9 @@ export function ProductDescription({ product }: { product: Product }) {
         <h1 className="font-serif text-4xl font-light leading-tight tracking-tight">
           {product.title}
         </h1>
+        {typeof product.supplier === 'object' && product.supplier?.commercialName && (
+          <SupplierName name={product.supplier.commercialName} />
+        )}
         <div className="font-mono text-xl">
           {hasVariants ? (
             <Price highestAmount={highestAmount} lowestAmount={lowestAmount} />
@@ -86,6 +90,13 @@ export function ProductDescription({ product }: { product: Product }) {
       <Suspense fallback={null}>
         <StockIndicator product={product} />
       </Suspense>
+
+      {(product.weightKg || product.personsCapacity) && (
+        <div className="flex flex-wrap gap-3">
+          {product.weightKg && <WeightBadge weight={product.weightKg} />}
+          {product.personsCapacity && <PersonsCapacityBadge capacity={product.personsCapacity} />}
+        </div>
+      )}
 
       <Suspense fallback={null}>
         <AddToCart product={product} />

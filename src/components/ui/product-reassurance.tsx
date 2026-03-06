@@ -1,5 +1,5 @@
 import { cn } from '@/utilities/cn'
-import { RotateCcw, ShieldCheck, Truck } from 'lucide-react'
+import { Package, RotateCcw, ShieldCheck, Truck, Users } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -57,4 +57,55 @@ function TrustpilotBadge({ className }: { className?: string }) {
   )
 }
 
-export { FreeDeliveryBadge, ProductReassurance, TrustpilotBadge }
+function ProductInfoBadge({
+  icon,
+  label,
+  className,
+}: {
+  icon: React.ReactNode
+  label: string
+  className?: string
+}) {
+  return (
+    <div
+      data-slot="product-info-badge"
+      className={cn('flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-2 text-sm font-medium', className)}
+    >
+      <span className="text-muted-foreground">{icon}</span>
+      {label}
+    </div>
+  )
+}
+
+function WeightBadge({ weight, className }: { weight: number; className?: string }) {
+  return <ProductInfoBadge icon={<Package size={14} />} label={`${weight} kg`} className={className} />
+}
+
+function PersonsCapacityBadge({ capacity, className }: { capacity: number; className?: string }) {
+  const label = `${capacity} ${capacity > 1 ? 'personnes' : 'personne'}`
+  return <ProductInfoBadge icon={<Users size={14} />} label={label} className={className} />
+}
+
+function PremiumBadge({ className }: { className?: string }) {
+  return (
+    <span
+      data-slot="premium-badge"
+      className={cn(
+        'inline-flex w-fit rounded border border-border bg-muted px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-widest text-muted-foreground',
+        className,
+      )}
+    >
+      Haut de gamme
+    </span>
+  )
+}
+
+function SupplierName({ name, className }: { name: string; className?: string }) {
+  return (
+    <p data-slot="supplier-name" className={cn('text-sm italic text-muted-foreground', className)}>
+      {name}
+    </p>
+  )
+}
+
+export { FreeDeliveryBadge, PersonsCapacityBadge, PremiumBadge, ProductReassurance, SupplierName, TrustpilotBadge, WeightBadge }

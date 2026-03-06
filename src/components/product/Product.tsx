@@ -13,6 +13,7 @@ import {
   ProductPageInfoCol,
 } from '@/components/ui/product-layout'
 import { FreeDeliveryBadge, ProductReassurance, TrustpilotBadge } from '@/components/ui/product-reassurance'
+import { SupportSection } from '@/components/ui/support-section'
 import { CheckoutReassurance } from '@/components/checkout/CheckoutReassurance'
 import { Banner } from '@/components/ui/banner'
 import { Suspense } from 'react'
@@ -59,6 +60,8 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
           </ProductPageInfoCol>
         </ProductPageGrid>
       </ProductPageContainer>
+
+      <SupportSection />
 
       {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : null}
 

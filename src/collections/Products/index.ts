@@ -50,6 +50,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     enableVariants: true,
     gallery: true,
     priceInUSD: true,
+    compareAtPrice: true,
     inventory: true,
     meta: true,
     isBestseller: true,
@@ -229,6 +230,33 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       },
     },
     {
+      name: 'supplier',
+      type: 'relationship',
+      relationTo: 'suppliers',
+      admin: {
+        position: 'sidebar',
+      },
+      access: {
+        read: ({ req: { user } }) => Boolean(user?.roles?.includes('admin')),
+      },
+    },
+    {
+      name: 'weightKg',
+      type: 'number',
+      label: 'Poids (kg)',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'personsCapacity',
+      type: 'number',
+      label: 'Nombre de personnes',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'isBestseller',
       type: 'checkbox',
       label: 'Best-seller',
@@ -236,6 +264,15 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       admin: {
         position: 'sidebar',
         description: 'Affiche le badge "Top Vente" sur ce produit',
+      },
+    },
+    {
+      name: 'compareAtPrice',
+      type: 'number',
+      label: 'Prix barré (avant remise) €',
+      admin: {
+        position: 'sidebar',
+        description: 'Si renseigné, affiche ce prix barré avec le badge "Promo"',
       },
     },
     slugField(),

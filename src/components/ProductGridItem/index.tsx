@@ -5,6 +5,7 @@ import React from 'react'
 import { Media } from '@/components/Media'
 import { Price } from '@/components/Price'
 import { ProductBadge } from '@/components/ui/product-layout'
+import { SupplierName } from '@/components/ui/product-reassurance'
 
 type Props = {
   product: Partial<Product>
@@ -50,8 +51,13 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
       )}
 
       <div className="mt-4 flex justify-between items-start gap-4">
-        <div className="font-serif text-lg font-light tracking-wide text-foreground leading-snug">
-          {title}
+        <div className="flex flex-col gap-0.5">
+          <div className="font-serif text-lg font-light tracking-wide text-foreground leading-snug">
+            {title}
+          </div>
+          {typeof product.supplier === 'object' && product.supplier?.commercialName && (
+            <SupplierName name={product.supplier.commercialName} />
+          )}
         </div>
 
         {typeof price === 'number' && (

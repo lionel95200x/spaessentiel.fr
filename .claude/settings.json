@@ -41,7 +41,12 @@
       "Bash(__NEW_LINE_133af103dfae8b92__ curl -s -X PATCH \"http://localhost:3022/api/products/8\" -b /tmp/payload_cookies.txt -H \"Authorization: JWT $TOKEN\" -H \"Content-Type: application/json\" -d @/tmp/desc2.json)",
       "Bash(pnpm generate:types)",
       "Bash(npx payload generate:types)",
-      "Bash(echo \"EXIT: $?\")"
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(curl -s -X POST \"http://localhost:3022/api/users/login\" -H \"Content-Type: application/json\" -d '{\"\"email\"\":\"\"lionel.bueno@icloud.com\"\",\"\"password\"\":\"\"Admin1234!\"\"}' -c /tmp/payload_cookies.txt)",
+      "Bash(curl -s -X POST \"http://localhost:3022/api/users/login\" -H \"Content-Type: application/json\" -c /tmp/payload_cookies.txt -d '{\"\"email\"\":\"\"lionel.bueno@icloud.com\"\",\"\"password\"\":\"\"Admin1234!\"\"}')",
+      "Bash(git add src/components/shop-home/Testimonials.tsx)",
+      "Bash(git commit -m \"fix\\(testimonials\\): escape unescaped quote entities\")",
+      "Bash(git push)"
     ],
     "additionalDirectories": [
       "/Users/lionelbueno/Documents/Projet/solbad/src/app/(app)/category",

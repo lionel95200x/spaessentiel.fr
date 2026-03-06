@@ -1,6 +1,6 @@
 ---
-name: create-product-alibaba
-description: Parser une fiche produit Alibaba avec Playwright et créer/mettre à jour le produit dans Payload CMS (title, description, gallery, supplier infos)
+name: alibaba:create-product
+description: Parser une fiche produit Alibaba (URL unique) avec Playwright et créer/mettre à jour le produit dans Payload CMS (title, description, gallery, supplier infos)
 ---
 
 # Créer un produit depuis Alibaba — Workflow

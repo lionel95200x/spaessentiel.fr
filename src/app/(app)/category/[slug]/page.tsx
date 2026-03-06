@@ -79,6 +79,7 @@ export default async function CategoryPage({ params }: Props) {
       gallery: true,
       categories: true,
       priceInUSD: true,
+      supplier: true,
     },
     sort: 'title',
   })
