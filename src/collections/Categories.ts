@@ -2,6 +2,7 @@ import { slugField } from 'payload'
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
+import { allBlocks } from '@/blocks/allBlocks'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -26,10 +27,6 @@ export const Categories: CollectionConfig = {
       type: 'textarea',
     },
     {
-      name: 'subdescription',
-      type: 'richText',
-    },
-    {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
@@ -38,6 +35,11 @@ export const Categories: CollectionConfig = {
       name: 'banner',
       type: 'upload',
       relationTo: 'media',
+    },
+    {
+      name: 'layout',
+      type: 'blocks',
+      blocks: allBlocks,
     },
     slugField({
       position: undefined,

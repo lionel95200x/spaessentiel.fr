@@ -1,19 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import { Banner } from '@/blocks/Banner/config'
-import { Carousel } from '@/blocks/Carousel/config'
-import { SplitBlock } from '@/blocks/SplitBlock/config'
-import { ThreeItemGrid } from '@/blocks/ThreeItemGrid/config'
+import { allBlocks } from '@/blocks/allBlocks'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { adminOnly } from '@/access/adminOnly'
-import { Archive } from '@/blocks/ArchiveBlock/config'
-import { CategoryShowcaseBlock } from '@/blocks/CategoryShowcaseBlock/config'
-import { ReassuranceBlock } from '@/blocks/ReassuranceBlock/config'
-import { TestimonialsBlock } from '@/blocks/TestimonialsBlock/config'
-import { CallToAction } from '@/blocks/CallToAction/config'
-import { Content } from '@/blocks/Content/config'
-import { FormBlock } from '@/blocks/Form/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { hero } from '@/fields/hero'
 import { slugField } from 'payload'
 import { adminOrPublishedStatus } from '@/access/adminOrPublishedStatus'
@@ -91,20 +80,7 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [
-                CallToAction,
-                Content,
-                MediaBlock,
-                CategoryShowcaseBlock,
-                ReassuranceBlock,
-                TestimonialsBlock,
-                Archive,
-                Carousel,
-                ThreeItemGrid,
-                Banner,
-                FormBlock,
-                SplitBlock,
-              ],
+              blocks: allBlocks,
               required: true,
             },
           ],

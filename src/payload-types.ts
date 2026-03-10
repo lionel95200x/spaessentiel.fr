@@ -537,23 +537,24 @@ export interface Category {
   id: number;
   title: string;
   description?: string | null;
-  subdescription?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   image?: (number | null) | Media;
   banner?: (number | null) | Media;
+  layout?:
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | CategoryShowcaseBlock
+        | ReassuranceBlock
+        | TestimonialsBlock
+        | ArchiveBlock
+        | CarouselBlock
+        | ThreeItemGridBlock
+        | BannerBlock
+        | FormBlock
+        | SplitBlock
+      )[]
+    | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1534,9 +1535,24 @@ export interface SplitBlockSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  subdescription?: T;
   image?: T;
   banner?: T;
+  layout?:
+    | T
+    | {
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        categoryShowcase?: T | CategoryShowcaseBlockSelect<T>;
+        reassuranceBlock?: T | ReassuranceBlockSelect<T>;
+        testimonialsBlock?: T | TestimonialsBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        carousel?: T | CarouselBlockSelect<T>;
+        threeItemGrid?: T | ThreeItemGridBlockSelect<T>;
+        banner?: T | BannerBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        splitBlock?: T | SplitBlockSelect<T>;
+      };
   generateSlug?: T;
   slug?: T;
   parent?: T;

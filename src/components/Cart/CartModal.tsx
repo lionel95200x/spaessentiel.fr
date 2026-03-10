@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { PaymentIcons } from '@/components/checkout/PaymentIcons'
+import { RatingAgents } from '@/components/checkout/LiveAgents'
 import { Button } from '@/components/ui/button'
 import { Product, VariantOption } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
@@ -47,9 +48,9 @@ export function CartModal() {
 
       <SheetContent className="flex flex-col">
         <SheetHeader>
-          <SheetTitle>My Cart</SheetTitle>
+          <SheetTitle>Mon panier</SheetTitle>
 
-          <SheetDescription>Manage your cart here, add items to view the total.</SheetDescription>
+          <SheetDescription>Retrouvez vos articles et finalisez votre commande.</SheetDescription>
         </SheetHeader>
 
         {!cart || cart?.items?.length === 0 ? (
@@ -163,9 +164,9 @@ export function CartModal() {
                 })}
               </ul>
 
-              <div className='py-4'>
+              <div className='py-4 flex flex-col gap-3'>
+                <RatingAgents />
                 <PaymentIcons />
-
               </div>
               <div className="px-4">
                 <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">

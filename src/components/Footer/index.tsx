@@ -3,8 +3,6 @@ import { NewsletterForm } from '@/components/Footer/newsletter-form'
 import {
   FooterBottomSection,
   FooterColumn,
-  FooterColumnItem,
-  FooterColumnList,
   FooterColumnsGrid,
   FooterContactBlock,
   FooterContainer,
@@ -14,21 +12,21 @@ import {
   FooterMiddleSection,
   FooterNewsletterDisclaimer,
   FooterNewsletterWrapper,
-  FooterPaymentBadge,
   FooterPaymentList,
   FooterRoot,
   FooterSectionTitle,
   FooterSocialItem,
   FooterSocialList,
   FooterTagline,
-  FooterTopSection,
+  FooterTopSection
 } from '@/components/ui/footer-layout'
 import { CONTACT } from '@/constants/contact'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
+import Link from 'next/link'
+import { getPayload } from 'payload'
 import React from 'react'
+import { PaymentIcons } from '../checkout/PaymentIcons'
 
 const MARQUES = [
   { label: 'Archipel', href: '/marques/archipel' },
@@ -54,15 +52,7 @@ const INFOS_PRATIQUES = [
   { label: 'RGPD', href: '/rgpd' },
 ]
 
-const PAYMENT_METHODS = [
-  'American Express',
-  'Mastercard',
-  'PayPal',
-  'Visa',
-  'Chèque',
-  'Virement',
-  'Crédit',
-]
+
 
 const LEGAL_LINKS = [
   { label: 'Mentions légales', href: '/mentions-legales' },
@@ -124,9 +114,8 @@ export async function Footer() {
           <FooterColumn>
             <FooterSectionTitle>Paiement sécurisé</FooterSectionTitle>
             <FooterPaymentList>
-              {PAYMENT_METHODS.map((method) => (
-                <FooterPaymentBadge key={method}>{method}</FooterPaymentBadge>
-              ))}
+              <PaymentIcons />
+
             </FooterPaymentList>
           </FooterColumn>
 

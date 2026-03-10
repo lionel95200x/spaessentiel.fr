@@ -10,7 +10,7 @@ export function CheckoutReassurance() {
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <Lock className="size-4 text-muted-foreground" />
-          <p className="font-semibold text-sm">Paiements 100% sécurisés</p>
+          <p className="font-semibold text-sm">Paiements sécurisés</p>
         </div>
         <PaymentIcons />
         <p className="text-xs text-muted-foreground">

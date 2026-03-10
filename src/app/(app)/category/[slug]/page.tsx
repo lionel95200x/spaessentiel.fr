@@ -1,8 +1,7 @@
 import type { Media } from '@/payload-types'
 
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { RichText } from '@/components/RichText'
-import { Testimonials } from '@/components/shop-home/Testimonials'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { Grid } from '@/components/Grid'
 import { Media as MediaComponent } from '@/components/Media'
 import { NoProductsFound } from '@/components/product/NoProductsFound'
@@ -143,13 +142,7 @@ export default async function CategoryPage({ params }: Props) {
         )}
       </ShopSection>
 
-      {category.subdescription && (
-        <div className="py-12">
-          <RichText data={category.subdescription} />
-        </div>
-      )}
-
-      <Testimonials />
+      <RenderBlocks blocks={(category as any).layout} />
     </>
   )
 }
