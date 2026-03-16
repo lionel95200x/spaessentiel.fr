@@ -511,6 +511,7 @@ export interface Page {
     | BannerBlock
     | FormBlock
     | SplitBlock
+    | FaqBlock
   )[];
   meta?: {
     title?: string | null;
@@ -553,6 +554,7 @@ export interface Category {
         | BannerBlock
         | FormBlock
         | SplitBlock
+        | FaqBlock
       )[]
     | null;
   /**
@@ -981,6 +983,23 @@ export interface SplitBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  title?: string | null;
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "variants".
  */
 export interface Variant {
@@ -1352,6 +1371,7 @@ export interface PagesSelect<T extends boolean = true> {
         banner?: T | BannerBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         splitBlock?: T | SplitBlockSelect<T>;
+        faqBlock?: T | FaqBlockSelect<T>;
       };
   meta?:
     | T
@@ -1530,6 +1550,22 @@ export interface SplitBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock_select".
+ */
+export interface FaqBlockSelect<T extends boolean = true> {
+  title?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories_select".
  */
 export interface CategoriesSelect<T extends boolean = true> {
@@ -1552,6 +1588,7 @@ export interface CategoriesSelect<T extends boolean = true> {
         banner?: T | BannerBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         splitBlock?: T | SplitBlockSelect<T>;
+        faqBlock?: T | FaqBlockSelect<T>;
       };
   generateSlug?: T;
   slug?: T;

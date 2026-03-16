@@ -1,4 +1,5 @@
 import { Archive } from '@/blocks/ArchiveBlock/config'
+import { FaqBlock } from '@/blocks/FaqBlock/config'
 import { Banner } from '@/blocks/Banner/config'
 import { CallToAction } from '@/blocks/CallToAction/config'
 import { Carousel } from '@/blocks/Carousel/config'
@@ -24,4 +25,5 @@ export const allBlocks = [
   Banner,
   FormBlock,
   SplitBlock,
+  FaqBlock,
 ]

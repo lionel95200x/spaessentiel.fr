@@ -1,4 +1,5 @@
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { FaqBlockComponent } from '@/blocks/FaqBlock/Component'
 import { CategoryShowcaseBlockComponent } from '@/blocks/CategoryShowcaseBlock/Component'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -28,6 +29,7 @@ const blockComponents = {
   testimonialsBlock: TestimonialsBlockComponent,
   splitBlock: SplitBlockComponent,
   threeItemGrid: ThreeItemGridBlock,
+  faqBlock: FaqBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
