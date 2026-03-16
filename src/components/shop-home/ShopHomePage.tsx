@@ -39,7 +39,7 @@ export function ShopHomePage({ featuredProducts, categories }: Props) {
       {/* Section 1 — Hero */}
       <ShopHeroSection>
         <ShopHeroImageSlot>
-          <ShopHeroImage src="/images/hero-sauna.jpg" alt="Solbad — sauna moderne" />
+          <ShopHeroImage src="/images/hero-sauna.jpg" alt="Spa Essentiel — sauna moderne" />
         </ShopHeroImageSlot>
         <ShopHeroOverlay />
         <ShopHeroContent>
@@ -77,7 +77,7 @@ export function ShopHomePage({ featuredProducts, categories }: Props) {
         <ShopSplitContentCol>
           <ShopSplitTitle>Une tradition millénaire, réinventée</ShopSplitTitle>
           <ShopSplitBody>
-            Solbad propose une sélection de produits d&apos;exception pour sublimer votre rituel de
+            Spa Essentiel propose une sélection de produits d&apos;exception pour sublimer votre rituel de
             sauna. Des essences naturelles aux accessoires haut de gamme, chaque pièce est choisie
             avec soin.
           </ShopSplitBody>

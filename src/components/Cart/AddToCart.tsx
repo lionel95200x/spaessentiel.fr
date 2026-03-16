@@ -45,7 +45,7 @@ export function AddToCart({ product }: Props) {
         product: product.id,
         variant: selectedVariant?.id ?? undefined,
       }).then(() => {
-        toast.success('Item added to cart.')
+        toast.success('Article ajouté au panier.')
       })
     },
     [addItem, product, selectedVariant],
@@ -96,7 +96,7 @@ export function AddToCart({ product }: Props) {
 
   return (
     <Button
-      aria-label="Add to cart"
+      aria-label="Ajouter au panier"
       variant={'outline'}
       className={clsx({
         'hover:opacity-90': true,

@@ -12,6 +12,7 @@ import {
 import { AddressForm } from '@/components/forms/AddressForm'
 import { Address } from '@/payload-types'
 import { DefaultDocumentIDType } from 'payload'
+import { useAuth } from '@/providers/Auth'
 
 type Props = {
   addressID?: DefaultDocumentIDType
@@ -26,12 +27,16 @@ type Props = {
 export const CreateAddressModal: React.FC<Props> = ({
   addressID,
   initialData,
-  buttonText = 'Add a new address',
-  modalTitle = 'Add a new address',
+  buttonText = 'Ajouter une nouvelle adresse',
+  modalTitle = 'Ajouter une nouvelle adresse',
   callback,
   skipSubmission,
   disabled,
 }) => {
+  const { user } = useAuth()
+
+  // Forcer skipSubmission à true si l'utilisateur n'est pas connecté
+  const shouldSkipSubmission = skipSubmission || !user
   const [open, setOpen] = useState(false)
   const handleOpenChange = (state: boolean) => {
     setOpen(state)
@@ -57,14 +62,18 @@ export const CreateAddressModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogDescription>This address will be connected to your account.</DialogDescription>
+          <DialogDescription>
+            {user
+              ? 'Cette adresse sera associée à votre compte.'
+              : 'Cette adresse sera utilisée pour cette commande uniquement.'}
+          </DialogDescription>
         </DialogHeader>
 
         <AddressForm
           addressID={addressID}
           initialData={initialData}
           callback={handleCallback}
-          skipSubmission={skipSubmission}
+          skipSubmission={shouldSkipSubmission}
         />
       </DialogContent>
     </Dialog>

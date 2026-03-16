@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { deepMergeSimple } from 'payload/shared'
 import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
+import { Message } from '@/components/Message'
 
 type AddressFormValues = {
   title?: string | null
@@ -53,28 +54,36 @@ export const AddressForm: React.FC<Props> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm<AddressFormValues>({
     defaultValues: initialData,
   })
 
   const { createAddress, updateAddress } = useAddresses()
+  const [error, setError] = useState<string | null>(null)
 
   const onSubmit = useCallback(
     async (data: AddressFormValues) => {
-      const newData = deepMergeSimple(initialData || {}, data)
+      try {
+        setError(null)
+        const newData = deepMergeSimple(initialData || {}, data)
 
-      if (!skipSubmission) {
-        if (addressID) {
-          await updateAddress(addressID, newData)
-        } else {
-          await createAddress(newData)
+        if (!skipSubmission) {
+          if (addressID) {
+            await updateAddress(addressID, newData)
+          } else {
+            await createAddress(newData)
+          }
         }
-      }
 
-      if (callback) {
-        callback(newData)
+        if (callback) {
+          callback(newData)
+        }
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Une erreur s\'est produite lors de l\'enregistrement de l\'adresse.'
+        setError(errorMessage)
+        console.error('Address form error:', err)
       }
     },
     [initialData, skipSubmission, callback, addressID, updateAddress, createAddress],
@@ -82,10 +91,11 @@ export const AddressForm: React.FC<Props> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {error && <Message error={error} className="mb-4" />}
       <div className="flex flex-col gap-4 mb-8">
         <div className="flex flex-col md:flex-row gap-4">
           <FormItem className="shrink">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Civilité</Label>
 
             <Select
               {...register('title')}
@@ -95,7 +105,7 @@ export const AddressForm: React.FC<Props> = ({
               defaultValue={initialData?.title || ''}
             >
               <SelectTrigger id="title">
-                <SelectValue placeholder="Title" />
+                <SelectValue placeholder="Civilité" />
               </SelectTrigger>
               <SelectContent>
                 {titles.map((title) => (
@@ -109,85 +119,85 @@ export const AddressForm: React.FC<Props> = ({
           </FormItem>
 
           <FormItem>
-            <Label htmlFor="firstName">First name*</Label>
+            <Label htmlFor="firstName">Prénom*</Label>
             <Input
               id="firstName"
               autoComplete="given-name"
-              {...register('firstName', { required: 'First name is required.' })}
+              {...register('firstName', { required: 'Le prénom est requis.' })}
             />
             {errors.firstName && <FormError message={errors.firstName.message} />}
           </FormItem>
 
           <FormItem>
-            <Label htmlFor="lastName">Last name*</Label>
+            <Label htmlFor="lastName">Nom*</Label>
             <Input
               autoComplete="family-name"
               id="lastName"
-              {...register('lastName', { required: 'Last name is required.' })}
+              {...register('lastName', { required: 'Le nom est requis.' })}
             />
             {errors.lastName && <FormError message={errors.lastName.message} />}
           </FormItem>
         </div>
 
         <FormItem>
-          <Label htmlFor="phone">Phone</Label>
+          <Label htmlFor="phone">Téléphone</Label>
           <Input type="tel" id="phone" autoComplete="mobile tel" {...register('phone')} />
           {errors.phone && <FormError message={errors.phone.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="company">Company</Label>
+          <Label htmlFor="company">Entreprise</Label>
           <Input id="company" autoComplete="organization" {...register('company')} />
           {errors.company && <FormError message={errors.company.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="addressLine1">Address line 1*</Label>
+          <Label htmlFor="addressLine1">Adresse ligne 1*</Label>
           <Input
             id="addressLine1"
             autoComplete="address-line1"
-            {...register('addressLine1', { required: 'Address line 1 is required.' })}
+            {...register('addressLine1', { required: 'L\'adresse ligne 1 est requise.' })}
           />
           {errors.addressLine1 && <FormError message={errors.addressLine1.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="addressLine2">Address line 2</Label>
+          <Label htmlFor="addressLine2">Adresse ligne 2</Label>
           <Input id="addressLine2" autoComplete="address-line2" {...register('addressLine2')} />
           {errors.addressLine2 && <FormError message={errors.addressLine2.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="city">City*</Label>
+          <Label htmlFor="city">Ville*</Label>
           <Input
             id="city"
             autoComplete="address-level2"
-            {...register('city', { required: 'City is required.' })}
+            {...register('city', { required: 'La ville est requise.' })}
           />
           {errors.city && <FormError message={errors.city.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="state">State</Label>
+          <Label htmlFor="state">Région</Label>
           <Input id="state" autoComplete="address-level1" {...register('state')} />
           {errors.state && <FormError message={errors.state.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="postalCode">Zip Code*</Label>
+          <Label htmlFor="postalCode">Code postal*</Label>
           <Input
             id="postalCode"
-            {...register('postalCode', { required: 'Postal code is required.' })}
+            {...register('postalCode', { required: 'Le code postal est requis.' })}
           />
           {errors.postalCode && <FormError message={errors.postalCode.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="country">Country*</Label>
+          <Label htmlFor="country">Pays*</Label>
 
           <Select
             {...register('country', {
-              required: 'Country is required.',
+              required: 'Le pays est requis.',
             })}
             onValueChange={(value) => {
               setValue('country', value, { shouldValidate: true })
@@ -196,7 +206,7 @@ export const AddressForm: React.FC<Props> = ({
             defaultValue={initialData?.country || ''}
           >
             <SelectTrigger id="country" className="w-full">
-              <SelectValue placeholder="Country" />
+              <SelectValue placeholder="Pays" />
             </SelectTrigger>
             <SelectContent>
               {supportedCountries.map((country) => {
@@ -220,7 +230,9 @@ export const AddressForm: React.FC<Props> = ({
         </FormItem>
       </div>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
+      </Button>
     </form>
   )
 }

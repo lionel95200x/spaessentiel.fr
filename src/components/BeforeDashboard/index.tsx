@@ -9,7 +9,7 @@ export const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Solbad — CMS</h4>
+        <h4>Spa Essentiel — CMS</h4>
       </Banner>
       <ul className={`${baseClass}__instructions`}>
         <li>

@@ -47,7 +47,7 @@ export const CreateAccountForm: React.FC = () => {
       })
 
       if (!response.ok) {
-        const message = response.statusText || 'There was an error creating the account.'
+        const message = response.statusText || 'Une erreur s\'est produite lors de la création du compte.'
         setError(message)
         return
       }
@@ -62,10 +62,10 @@ export const CreateAccountForm: React.FC = () => {
         await login(data)
         clearTimeout(timer)
         if (redirect) router.push(redirect)
-        else router.push(`/account?success=${encodeURIComponent('Account created successfully')}`)
+        else router.push(`/account?success=${encodeURIComponent('Compte créé avec succès')}`)
       } catch (_) {
         clearTimeout(timer)
-        setError('There was an error with the credentials provided. Please try again.')
+        setError('Une erreur s\'est produite avec les identifiants fournis. Veuillez réessayer.')
       }
     },
     [login, router, searchParams],
@@ -75,8 +75,8 @@ export const CreateAccountForm: React.FC = () => {
     <form className="max-w-lg py-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="prose dark:prose-invert mb-6">
         <p>
-          {`This is where new customers can signup and create a new account. To manage all users, `}
-          <Link href="/admin/collections/users">login to the admin dashboard</Link>.
+          {`C'est ici que les nouveaux clients peuvent s'inscrire et créer un nouveau compte. Pour gérer tous les utilisateurs, `}
+          <Link href="/admin/collections/users">connectez-vous au tableau de bord administrateur</Link>.
         </p>
       </div>
 
@@ -85,11 +85,11 @@ export const CreateAccountForm: React.FC = () => {
       <div className="flex flex-col gap-8 mb-8">
         <FormItem>
           <Label htmlFor="email" className="mb-2">
-            Email Address
+            Adresse email
           </Label>
           <Input
             id="email"
-            {...register('email', { required: 'Email is required.' })}
+            {...register('email', { required: 'L\'email est requis.' })}
             type="email"
           />
           {errors.email && <FormError message={errors.email.message} />}
@@ -97,11 +97,11 @@ export const CreateAccountForm: React.FC = () => {
 
         <FormItem>
           <Label htmlFor="password" className="mb-2">
-            New password
+            Nouveau mot de passe
           </Label>
           <Input
             id="password"
-            {...register('password', { required: 'Password is required.' })}
+            {...register('password', { required: 'Le mot de passe est requis.' })}
             type="password"
           />
           {errors.password && <FormError message={errors.password.message} />}
@@ -109,13 +109,13 @@ export const CreateAccountForm: React.FC = () => {
 
         <FormItem>
           <Label htmlFor="passwordConfirm" className="mb-2">
-            Confirm Password
+            Confirmer le mot de passe
           </Label>
           <Input
             id="passwordConfirm"
             {...register('passwordConfirm', {
-              required: 'Please confirm your password.',
-              validate: (value) => value === password.current || 'The passwords do not match',
+              required: 'Veuillez confirmer votre mot de passe.',
+              validate: (value) => value === password.current || 'Les mots de passe ne correspondent pas',
             })}
             type="password"
           />
@@ -123,13 +123,13 @@ export const CreateAccountForm: React.FC = () => {
         </FormItem>
       </div>
       <Button disabled={loading} type="submit" variant="default">
-        {loading ? 'Processing' : 'Create Account'}
+        {loading ? 'Traitement en cours' : 'Créer le compte'}
       </Button>
 
       <div className="prose dark:prose-invert mt-8">
         <p>
-          {'Already have an account? '}
-          <Link href={`/login${allParams}`}>Login</Link>
+          {'Vous avez déjà un compte ? '}
+          <Link href={`/login${allParams}`}>Se connecter</Link>
         </p>
       </div>
     </form>

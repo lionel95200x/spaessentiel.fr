@@ -38,7 +38,7 @@ export const LoginForm: React.FC = () => {
         if (redirect?.current) router.push(redirect.current)
         else router.push('/account')
       } catch (_) {
-        setError('There was an error with the credentials provided. Please try again.')
+        setError('Une erreur s\'est produite avec les identifiants fournis. Veuillez réessayer.')
       }
     },
     [login, router],
@@ -53,25 +53,25 @@ export const LoginForm: React.FC = () => {
           <Input
             id="email"
             type="email"
-            {...register('email', { required: 'Email is required.' })}
+            {...register('email', { required: 'L\'email est requis.' })}
           />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
 
         <FormItem>
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Mot de passe</Label>
           <Input
             id="password"
             type="password"
-            {...register('password', { required: 'Please provide a password.' })}
+            {...register('password', { required: 'Veuillez saisir un mot de passe.' })}
           />
           {errors.password && <FormError message={errors.password.message} />}
         </FormItem>
 
         <div className="text-primary/70 mb-6 prose prose-a:hover:text-primary dark:prose-invert">
           <p>
-            Forgot your password?{' '}
-            <Link href={`/recover-password${allParams}`}>Click here to reset it</Link>
+            Mot de passe oublié ?{' '}
+            <Link href={`/recover-password${allParams}`}>Cliquez ici pour le réinitialiser</Link>
           </p>
         </div>
       </div>
@@ -79,11 +79,11 @@ export const LoginForm: React.FC = () => {
       <div className="flex gap-4 justify-between">
         <Button asChild variant="outline" size="lg">
           <Link href={`/create-account${allParams}`} className="grow max-w-[50%]">
-            Create an account
+            Créer un compte
           </Link>
         </Button>
         <Button className="grow" disabled={isLoading} size="lg" type="submit" variant="default">
-          {isLoading ? 'Processing' : 'Continue'}
+          {isLoading ? 'Traitement en cours' : 'Se connecter'}
         </Button>
       </div>
     </form>

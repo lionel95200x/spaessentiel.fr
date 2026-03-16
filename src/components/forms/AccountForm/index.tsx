@@ -50,7 +50,7 @@ export const AccountForm: React.FC = () => {
         if (response.ok) {
           const json = await response.json()
           setUser(json.doc)
-          toast.success('Successfully updated account.')
+          toast.success('Compte mis à jour avec succès.')
           setChangePassword(false)
           reset({
             name: json.doc.name,
@@ -59,7 +59,7 @@ export const AccountForm: React.FC = () => {
             passwordConfirm: '',
           })
         } else {
-          toast.error('There was a problem updating your account.')
+          toast.error('Un problème est survenu lors de la mise à jour de votre compte.')
         }
       }
     },
@@ -84,27 +84,27 @@ export const AccountForm: React.FC = () => {
         <Fragment>
           <div className="prose dark:prose-invert mb-8">
             <p className="">
-              {'Change your account details below, or '}
+              {'Modifiez les détails de votre compte ci-dessous, ou '}
               <Button
                 className="px-0 text-inherit underline hover:cursor-pointer"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
               >
-                click here
+                cliquez ici
               </Button>
-              {' to change your password.'}
+              {' pour changer votre mot de passe.'}
             </p>
           </div>
 
           <div className="flex flex-col gap-8 mb-8">
             <FormItem>
               <Label htmlFor="email" className="mb-2">
-                Email Address
+                Adresse email
               </Label>
               <Input
                 id="email"
-                {...register('email', { required: 'Please provide an email.' })}
+                {...register('email', { required: 'Veuillez saisir un email.' })}
                 type="email"
               />
               {errors.email && <FormError message={errors.email.message} />}
@@ -112,11 +112,11 @@ export const AccountForm: React.FC = () => {
 
             <FormItem>
               <Label htmlFor="name" className="mb-2">
-                Name
+                Nom
               </Label>
               <Input
                 id="name"
-                {...register('name', { required: 'Please provide a name.' })}
+                {...register('name', { required: 'Veuillez saisir un nom.' })}
                 type="text"
               />
               {errors.name && <FormError message={errors.name.message} />}
@@ -127,14 +127,14 @@ export const AccountForm: React.FC = () => {
         <Fragment>
           <div className="prose dark:prose-invert mb-8">
             <p>
-              {'Change your password below, or '}
+              {'Changez votre mot de passe ci-dessous, ou '}
               <Button
                 className="px-0 text-inherit underline hover:cursor-pointer"
                 onClick={() => setChangePassword(!changePassword)}
                 type="button"
                 variant="link"
               >
-                cancel
+                annuler
               </Button>
               .
             </p>
@@ -143,11 +143,11 @@ export const AccountForm: React.FC = () => {
           <div className="flex flex-col gap-8 mb-8">
             <FormItem>
               <Label htmlFor="password" className="mb-2">
-                New password
+                Nouveau mot de passe
               </Label>
               <Input
                 id="password"
-                {...register('password', { required: 'Please provide a new password.' })}
+                {...register('password', { required: 'Veuillez saisir un nouveau mot de passe.' })}
                 type="password"
               />
               {errors.password && <FormError message={errors.password.message} />}
@@ -155,13 +155,13 @@ export const AccountForm: React.FC = () => {
 
             <FormItem>
               <Label htmlFor="passwordConfirm" className="mb-2">
-                Confirm password
+                Confirmer le mot de passe
               </Label>
               <Input
                 id="passwordConfirm"
                 {...register('passwordConfirm', {
-                  required: 'Please confirm your new password.',
-                  validate: (value) => value === password.current || 'The passwords do not match',
+                  required: 'Veuillez confirmer votre nouveau mot de passe.',
+                  validate: (value) => value === password.current || 'Les mots de passe ne correspondent pas',
                 })}
                 type="password"
               />
@@ -172,10 +172,10 @@ export const AccountForm: React.FC = () => {
       )}
       <Button disabled={isLoading || isSubmitting || !isDirty} type="submit" variant="default">
         {isLoading || isSubmitting
-          ? 'Processing'
+          ? 'Traitement en cours'
           : changePassword
-            ? 'Change Password'
-            : 'Update Account'}
+            ? 'Changer le mot de passe'
+            : 'Mettre à jour le compte'}
       </Button>
     </form>
   )

@@ -3,6 +3,7 @@
 import { AddressItem } from '@/components/addresses/AddressItem'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/providers/Auth'
 import {
   Dialog,
   DialogContent,
@@ -24,15 +25,25 @@ type Props = {
 
 export const CheckoutAddresses: React.FC<Props> = ({
   setAddress,
-  heading = 'Addresses',
-  description = 'Please select or add your shipping and billing addresses.',
+  heading = 'Adresses',
+  description = 'Veuillez sélectionner ou ajouter vos adresses de livraison et de facturation.',
 }) => {
   const { addresses } = useAddresses()
+  const { user } = useAuth()
+
+  // Ce composant ne devrait être utilisé que pour les utilisateurs connectés
+  if (!user) {
+    return (
+      <div>
+        <p>Vous devez être connecté pour gérer vos adresses.</p>
+      </div>
+    )
+  }
 
   if (!addresses || addresses.length === 0) {
     return (
       <div>
-        <p>No addresses found. Please add an address.</p>
+        <p>Aucune adresse trouvée. Veuillez ajouter une adresse.</p>
 
         <CreateAddressModal />
       </div>
@@ -52,6 +63,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
 const AddressesModal: React.FC<Props> = ({ setAddress }) => {
   const [open, setOpen] = useState(false)
+  const { user } = useAuth()
+
   const handleOpenChange = (state: boolean) => {
     setOpen(state)
   }
@@ -61,18 +74,22 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
   }
   const { addresses } = useAddresses()
 
+  if (!user) {
+    return <p>Vous devez être connecté pour gérer vos adresses.</p>
+  }
+
   if (!addresses || addresses.length === 0) {
-    return <p>No addresses found. Please add an address.</p>
+    return <p>Aucune adresse trouvée. Veuillez ajouter une adresse.</p>
   }
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant={'outline'}>{'Select an address'}</Button>
+        <Button variant={'outline'}>{'Sélectionner une adresse'}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{'Select an address'}</DialogTitle>
+          <DialogTitle>{'Sélectionner une adresse'}</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-12">
@@ -89,7 +106,7 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
                         closeModal()
                       }}
                     >
-                      Select
+                      Sélectionner
                     </Button>
                   }
                 />
