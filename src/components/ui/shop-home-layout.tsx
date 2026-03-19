@@ -40,7 +40,7 @@ function ShopHeroSection({ className, ...props }: React.ComponentProps<'section'
   return (
     <section
       data-slot="shop-hero-section"
-      className={cn('relative h-[30vh] overflow-hidden', className)}
+      className={cn('relative h-[60vh] overflow-hidden', className)}
       {...props}
     />
   )
