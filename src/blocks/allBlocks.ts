@@ -27,3 +27,5 @@ export const allBlocks = [
   SplitBlock,
   FaqBlock,
 ]
+
+export const postBlocks = [CallToAction, Content, MediaBlock, SplitBlock, Banner, FaqBlock]

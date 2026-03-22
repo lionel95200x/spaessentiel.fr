@@ -1,7 +1,7 @@
 # Auth Payload CMS — Credentials partagés
 
 ```
-BASE_URL: http://localhost:3022
+BASE_URL: http://localhost:3000
 email:    claudeadmin@gmail.com
 password: claudeadmin
 role:     admin

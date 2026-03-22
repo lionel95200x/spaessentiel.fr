@@ -30,10 +30,7 @@ function ProductPageGrid({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="product-page-grid"
-      className={cn(
-        'flex flex-col gap-12 rounded-lg border bg-primary-foreground p-8 md:py-12 lg:flex-row lg:gap-16',
-        className,
-      )}
+      className={cn('flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16', className)}
       {...props}
     />
   )
@@ -43,7 +40,7 @@ function ProductPageGalleryCol({ className, ...props }: React.ComponentProps<'di
   return (
     <div
       data-slot="product-page-gallery-col"
-      className={cn('w-full lg:w-1/2', className)}
+      className={cn('w-full lg:sticky lg:top-8 lg:w-1/2 lg:self-start', className)}
       {...props}
     />
   )
@@ -53,7 +50,7 @@ function ProductPageInfoCol({ className, ...props }: React.ComponentProps<'div'>
   return (
     <div
       data-slot="product-page-info-col"
-      className={cn('flex flex-col gap-6 lg:w-1/2 lg:sticky lg:top-8 lg:self-start', className)}
+      className={cn('flex flex-col gap-6 lg:w-1/2', className)}
       {...props}
     />
   )
