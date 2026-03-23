@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import Script from 'next/script'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -50,6 +51,18 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18036369451"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18036369451');
+          `}
+        </Script>
         <Providers>
           <AdminBar />
           <LivePreviewListener />
