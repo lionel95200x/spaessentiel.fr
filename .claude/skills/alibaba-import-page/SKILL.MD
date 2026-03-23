@@ -7,7 +7,7 @@ description: Scraper une page listing Alibaba (ex: featureproductlist) avec Play
 
 ## Credentials & Auth
 
-> Voir `../../_common/auth.md` pour le login, l'upload d'images et le format Lexical richText.
+> Voir `../../payload-common/auth.md` pour le login, l'upload d'images et le format Lexical richText.
 
 ---
 

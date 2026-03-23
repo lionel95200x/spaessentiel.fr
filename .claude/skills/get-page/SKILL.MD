@@ -8,7 +8,7 @@ allowed-tools: Bash
 
 **Collection** : `pages`
 
-Utiliser le script LIST de `../_common/crud.md` avec `COLLECTION = "pages"`.
+Utiliser le script LIST de `../payload-common/crud.md` avec `COLLECTION = "pages"`.
 
 ---
 
@@ -23,4 +23,4 @@ Total: 2 pages
 
 Puis demander : **Sur quelle page veux-tu travailler ?**
 
-Pour publier une page → utiliser le script PUBLISH de `../_common/crud.md` avec `COLLECTION = "pages"` et l'ID choisi.
+Pour publier une page → utiliser le script PUBLISH de `../payload-common/crud.md` avec `COLLECTION = "pages"` et l'ID choisi.

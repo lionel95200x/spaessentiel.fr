@@ -7,7 +7,7 @@ description: Créer une nouvelle page via l'API Payload avec les blocks existant
 
 ## Credentials API
 
-> Voir `../_common/auth.md` pour les credentials, le login bash, l'upload d'images et le format Lexical richText.
+> Voir `../payload-common/auth.md` pour les credentials, le login bash, l'upload d'images et le format Lexical richText.
 
 ---
 
@@ -50,7 +50,7 @@ Uniquement si aucun block existant ne convient **et** le besoin est réutilisabl
 
 ### Authentification
 
-> Utiliser le snippet login de `../_common/auth.md` pour récupérer `$TOKEN`.
+> Utiliser le snippet login de `../payload-common/auth.md` pour récupérer `$TOKEN`.
 
 ### Créer la page (POST)
 

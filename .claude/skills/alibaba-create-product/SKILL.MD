@@ -7,7 +7,7 @@ description: Parser une fiche produit Alibaba (URL unique) avec Playwright et cr
 
 ## Credentials & Auth
 
-> Voir `../_common/auth.md` pour le login, l'upload d'images et le format Lexical richText.
+> Voir `../payload-common/auth.md` pour le login, l'upload d'images et le format Lexical richText.
 
 ---
 
@@ -72,7 +72,7 @@ TOKEN=$(curl -s -X POST "http://localhost:3022/api/users/login" \
 
 ## Étape 4 — Uploader les images
 
-Pour chaque image (voir `../_common/auth.md`) :
+Pour chaque image (voir `../payload-common/auth.md`) :
 
 ```bash
 curl -sL "$IMAGE_URL" -o /tmp/sauna-N.jpg
