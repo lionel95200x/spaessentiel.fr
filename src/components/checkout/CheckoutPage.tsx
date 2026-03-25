@@ -276,6 +276,8 @@ export const CheckoutPage: React.FC = () => {
           {!paymentData && (
             <Button
               className="self-start"
+              variant="cta"
+              size="lg"
               disabled={!canGoToPayment}
               onClick={(e) => {
                 e.preventDefault()
@@ -295,7 +297,8 @@ export const CheckoutPage: React.FC = () => {
                   e.preventDefault()
                   router.refresh()
                 }}
-                variant="default"
+                variant="cta"
+                size="lg"
               >
                 Réessayer
               </Button>

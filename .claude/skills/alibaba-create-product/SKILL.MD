@@ -1,181 +1,189 @@
 ---
 name: alibaba:create-product
-description: Parser une fiche produit Alibaba (URL unique) avec Playwright et créer/mettre à jour le produit dans Payload CMS (title, description, gallery, supplier infos)
+description: Parser une fiche produit Alibaba (URL unique) et créer/mettre à jour le produit dans Payload CMS (title, slug, description, gallery, supplier, categories, inventory, price)
 ---
 
-# Créer un produit depuis Alibaba — Workflow
+# Créer un produit depuis une fiche Alibaba — Workflow
 
-## Credentials & Auth
+## Dépendances
 
-> Voir `../payload-common/auth.md` pour le login, l'upload d'images et le format Lexical richText.
-
----
-
-## Étape 1 — Demander l'URL et l'ID produit
-
-Poser ces questions :
-
-> - **URL Alibaba** du produit à importer
-> - **ID du produit Payload** à mettre à jour (ex: `8`), ou laisser vide pour créer un nouveau
+> **Parsing** : voir `../alibaba-parsing/SKILL.MD` pour le scraping Playwright (titre, prix, specs, images).
+> **Payload** : voir `../payload-common/SKILL.MD` pour le login, l'upload d'images et le format Lexical richText.
 
 ---
 
-## Étape 2 — Parser la page Alibaba avec Playwright
+## Étape 1 — Demander les infos
 
-```javascript
-// 1. Naviguer vers l'URL
-await page.goto(URL_ALIBABA);
-// → Si captcha slider : faire glisser via mouse.down/move/up
-// → Si "Faites glisser pour vérifier" → attendre 3s et recharger
+> - **URL Alibaba** de la fiche produit
+> - **Titre FR** souhaité (si non fourni, utiliser le titre extrait)
+> - **ID catégorie Payload** (utiliser `/get-categories` si besoin)
+> - **ID supplier Payload** (vérifier via `GET /api/suppliers?limit=50` — créer si inexistant)
+> - **Prix de vente** en centimes EUR (ex: `189900` pour 1 899 €) — optionnel
+> - **Inventory** par défaut (ex: `10`)
+> - **ID produit existant** à mettre à jour, ou laisser vide pour créer
 
-// 2. Extraire les données clés
-const data = await page.evaluate(() => {
-  const lines = document.body.innerText.split('\n').map(l => l.trim()).filter(Boolean);
-  const titleIdx = lines.findIndex(l => l.length > 10 && !l.includes('alibaba'));
+---
 
-  return {
-    title: document.querySelector('h1')?.innerText?.trim(),
-    supplierName: document.querySelector('a[href*="alibaba.com/index"]')?.innerText?.trim(),
-    moq: document.body.innerText.match(/MOQ[:\s]+([^\n]+)/i)?.[1]?.trim(),
-    productSection: lines.slice(titleIdx, titleIdx + 60),
-  };
-});
+## Étape 2 — Parser la fiche Alibaba
 
-// 3. Extraire les images haute résolution (> 700px)
-const images = await page.evaluate(() =>
-  [...document.querySelectorAll('img')]
-    .map(img => ({ src: img.src, w: img.naturalWidth, alt: img.alt }))
-    .filter(img => img.src.startsWith('http') && img.w > 700)
-    .slice(0, 6)
-);
-```
-
-**Données à extraire :**
-- `title` — balise H1
-- `supplierName` + `supplierUrl` (lien vers la page fournisseur)
-- Specs : matériau, dimensions, puissance, garantie, MOQ
-- `images[]` — jusqu'à 6 images haute résolution (800-960px)
-- `supplierPrice` — prix numérique (min de la fourchette, en USD ou EUR)
+Suivre `/alibaba:parsing` → récupérer : `title`, `supplierPriceCents`, `supplierName`, `supplierHref`, `moq`, `specRows`, `images[]`.
 
 ---
 
 ## Étape 3 — Login Payload
 
-```bash
-TOKEN=$(curl -s -X POST "http://localhost:3022/api/users/login" \
-  -H "Content-Type: application/json" \
-  -d '{"email":"claudeadmin@gmail.com","password":"claudeadmin"}' \
-  | python3 -c "import json,sys; print(json.load(sys.stdin)['token'])")
+```python
+import subprocess, json
+
+BASE_URL = "http://localhost:3008"
+
+login = subprocess.run([
+    "curl", "-s", "-X", "POST", f"{BASE_URL}/api/users/login",
+    "-H", "Content-Type: application/json",
+    "-d", '{"email":"claudeadmin@gmail.com","password":"claudeadmin"}'
+], capture_output=True, text=True)
+token = json.loads(login.stdout)["token"]
 ```
 
 ---
 
 ## Étape 4 — Uploader les images
 
-Pour chaque image (voir `../payload-common/auth.md`) :
+```python
+import urllib.request, os
 
-```bash
-curl -sL "$IMAGE_URL" -o /tmp/sauna-N.jpg
+def upload_image(img_url, alt_text):
+    tmp = f"/tmp/product_{abs(hash(img_url))}.jpg"
+    try:
+        req = urllib.request.Request(img_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            with open(tmp, 'wb') as f:
+                f.write(r.read())
+    except Exception as e:
+        print(f"  ⚠ Download failed: {e}")
+        return None
 
-MEDIA_ID=$(curl -s -X POST "http://localhost:3022/api/media" \
-  -H "Authorization: JWT $TOKEN" \
-  -F "file=@/tmp/sauna-N.jpg;type=image/jpeg" \
-  -F '_payload={"alt":"Nom du produit"}' \
-  | python3 -c "import json,sys; print(json.load(sys.stdin)['doc']['id'])")
+    result = subprocess.run([
+        "curl", "-s", "-X", "POST", f"{BASE_URL}/api/media",
+        "-H", f"Authorization: JWT {token}",
+        "-F", f"file=@{tmp};type=image/jpeg",
+        "-F", f'_payload={{"alt":"{alt_text[:80]}"}}',
+    ], capture_output=True, text=True)
+
+    try:
+        media_id = json.loads(result.stdout).get("doc", {}).get("id")
+        if media_id:
+            os.remove(tmp)
+            print(f"  ✓ Media ID: {media_id}")
+        return media_id
+    except Exception as e:
+        print(f"  ✗ Upload error: {e}")
+        return None
+
+media_ids = []
+for i, img_url in enumerate(images, 1):
+    print(f"  [{i}/{len(images)}] Uploading...")
+    mid = upload_image(img_url, title_fr)
+    if mid:
+        media_ids.append(mid)
 ```
-
-Collecter tous les IDs → `[22, 23, 24, 25, 26, 27]`
 
 ---
 
-## Étape 5 — PATCH le produit Payload
-
-**Toujours utiliser python3 urllib** (pas `curl -d @file`) pour éviter les bugs d'encodage UTF-8.
+## Étape 5 — Construire la description Lexical
 
 ```python
-import json, urllib.request
-
-TOKEN = "..."
-PRODUCT_ID = 8
-
 def txt(text):
     return {"type":"text","text":text,"format":0,"detail":0,"mode":"normal","style":"","version":1}
 def para(text):
-    return {"type":"paragraph","format":"","indent":0,"version":1,"children":[txt(text)],"direction":"ltr"}
+    return {"type":"paragraph","format":"","indent":0,"version":1,"direction":"ltr",
+            "children":[txt(text)],"textFormat":0,"textStyle":""}
 def h2(text):
-    return {"type":"heading","tag":"h2","format":"","indent":0,"version":1,"children":[txt(text)],"direction":"ltr"}
+    return {"type":"heading","tag":"h2","format":"","indent":0,"version":1,"direction":"ltr",
+            "children":[txt(text)]}
 
 description = {
     "root": {
         "type":"root","format":"","indent":0,"version":1,"direction":"ltr",
         "children": [
-            h2("Caracteristiques"),
-            para("Marque : ..."),
-            para("Materiau : Bois solide"),
-            para("Dimensions : 1200 x 1050 x 1900 mm"),
-            para("Puissance : 6 KW"),
-            para("Garantie : 2 ans"),
-            h2("Fournisseur"),
-            para("Nom du fournisseur - Pays - N ans d anciennete"),
-            para("MOQ : 1 jeu"),
+            h2("Caractéristiques techniques"),
+            *[para(spec) for spec in spec_rows[:12]],
         ]
     }
 }
+```
 
+---
+
+## Étape 6 — Créer ou mettre à jour le produit
+
+**Toujours `python3 urllib`** — jamais `curl -d @file` avec du JSON UTF-8.
+
+```python
 body = {
-    "title": "Nom du produit",
+    "_status": "published",
+    "title": title_fr,
     "generateSlug": True,
     "description": description,
-    "gallery": [
-        {"image": 22}, {"image": 23}, {"image": 24},
-        {"image": 25}, {"image": 26}, {"image": 27},
-    ],
-    "supplierUrl": "https://www.alibaba.com/product-detail/...",
-    "supplierPrice": 1028,   # numérique — min de la fourchette de prix
+    "gallery": [{"image": mid} for mid in media_ids],
+    "supplier": SUPPLIER_ID,
+    "supplierUrl": URL_ALIBABA,
+    "supplierPrice": supplier_price_cents,
+    "priceInUSDEnabled": True,
+    "priceInUSD": price_eur_cents,
+    "categories": [CATEGORY_ID],
+    "inventory": INVENTORY,
     "meta": {
-        "title": "Nom produit | Spaessentiel",
-        "description": "Description SEO courte du produit."
+        "title": f"{title_fr} | Spaessentiel",
+        "description": f"Découvrez {title_fr} — {spec_rows[0] if spec_rows else ''}"
     }
 }
 
 payload = json.dumps(body).encode("utf-8")
+
+# POST = nouveau produit
 req = urllib.request.Request(
-    f"http://localhost:3022/api/products/{PRODUCT_ID}",
+    f"{BASE_URL}/api/products",
     data=payload,
-    headers={"Content-Type": "application/json", "Authorization": f"JWT {TOKEN}"},
-    method="PATCH"
+    headers={"Content-Type": "application/json", "Authorization": f"JWT {token}"},
+    method="POST"
 )
+# PATCH = mise à jour → remplacer l'URL par f"{BASE_URL}/api/products/{PRODUCT_ID}" + method="PATCH"
+
 with urllib.request.urlopen(req) as resp:
     doc = json.loads(resp.read()).get("doc", {})
-    print("ID:", doc.get("id"))
-    print("Slug:", doc.get("slug"))
-    print("Gallery:", len(doc.get("gallery", [])))
+    print(f"✓ ID:{doc.get('id')} | slug:{doc.get('slug')}")
 ```
 
 ---
 
-## Étape 6 — Vérifier
+## Étape 7 — Vérifier
 
-```bash
-curl -s "http://localhost:3022/api/products/8?depth=1" \
-  -H "Authorization: JWT $TOKEN" \
-  | python3 -c "
-import json,sys
-d=json.load(sys.stdin)
-print('Title:', d.get('title'))
-print('Slug:', d.get('slug'))
-print('Gallery:', len(d.get('gallery',[])))
-print('supplierUrl:', d.get('supplierUrl'))
-print('supplierPrice:', d.get('supplierPrice'))
-"
+```python
+result = subprocess.run([
+    "curl", "-s", f"{BASE_URL}/api/products/{product_id}?depth=1",
+    "-H", f"Authorization: JWT {token}"
+], capture_output=True, text=True)
+
+doc = json.loads(result.stdout)
+print(f"Title:         {doc.get('title')}")
+print(f"Slug:          {doc.get('slug')}")
+print(f"Status:        {doc.get('_status')}")
+print(f"Gallery:       {len(doc.get('gallery', []))} images")
+print(f"supplierPrice: {doc.get('supplierPrice')}")
+print(f"priceInUSD:    {doc.get('priceInUSD')}")
+print(f"inventory:     {doc.get('inventory')}")
+print(f"categories:    {doc.get('categories')}")
 ```
 
 ---
 
-## Notes importantes
+## Notes
 
-- **Captcha Alibaba** : si le slider apparaît, tenter `page.mouse` drag. Si ça échoue (error:wSVCWt), recharger la page — elle se charge souvent au 2e chargement.
-- **Prix** : Alibaba affiche les prix en fourchette (ex: `1 028 - 1 500 €`). Prendre la valeur **minimum** pour `supplierPrice`.
-- **Images** : filtrer `naturalWidth > 700` pour avoir uniquement les photos produit (pas les icônes/logos).
-- **RichText** : ne jamais utiliser `curl -d @file` avec du JSON UTF-8 complexe → toujours `python3 urllib`.
-- **Slug** : laisser `"generateSlug": true` — Payload le génère automatiquement depuis le titre.
+- **Slug** : `"generateSlug": true` — Payload le génère depuis le titre FR.
+- **Supplier** : vérifier `GET /api/suppliers?limit=50`. Créer si inexistant avant l'import.
+- **Prix** : `supplierPrice` = prix Alibaba min en centimes. `priceInUSD` = prix de vente.
+- **Categories** : utiliser `/get-categories` si l'ID n'est pas connu.
+- **PATCH gallery** : toujours envoyer `gallery` + `layout` ensemble dans le même PATCH — sinon les blocs layout perdent leurs images requises (erreur 400).
+- **Description** : ne jamais mentionner le pays d'origine ni le nom de la marque fournisseur. La marque, c'est Spaessentiel.
+- **SEO layout** : après création, lancer `/product:seo` pour générer les blocs description optimisés avec image.

@@ -289,7 +289,7 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
-  layout?: (CallToActionBlock | ContentBlock | MediaBlock)[] | null;
+  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ProductSeoBlock)[] | null;
   inventory?: number | null;
   enableVariants?: boolean | null;
   variantTypes?: (number | VariantType)[] | null;
@@ -999,6 +999,33 @@ export interface FaqBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductSeoBlock".
+ */
+export interface ProductSeoBlock {
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  media: number | Media;
+  imagePosition?: ('left' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'productSeoBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1937,6 +1964,7 @@ export interface ProductsSelect<T extends boolean = true> {
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        productSeoBlock?: T | ProductSeoBlockSelect<T>;
       };
   inventory?: T;
   enableVariants?: T;
@@ -1966,6 +1994,18 @@ export interface ProductsSelect<T extends boolean = true> {
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductSeoBlock_select".
+ */
+export interface ProductSeoBlockSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  media?: T;
+  imagePosition?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

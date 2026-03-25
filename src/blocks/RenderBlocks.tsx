@@ -11,10 +11,13 @@ import { ReassuranceBlockComponent } from '@/blocks/ReassuranceBlock/Component'
 import { TestimonialsBlockComponent } from '@/blocks/TestimonialsBlock/Component'
 import { SplitBlockComponent } from '@/blocks/SplitBlock/Component'
 import { ThreeItemGridBlock } from '@/blocks/ThreeItemGrid/Component'
+import { ProductSeoBlockComponent } from '@/blocks/ProductSeoBlock/Component'
 import { toKebabCase } from '@/utilities/toKebabCase'
 import React, { Fragment } from 'react'
 
-import type { Page } from '../payload-types'
+import type { Page, Product } from '../payload-types'
+
+type AnyBlock = Page['layout'][0] | NonNullable<Product['layout']>[0]
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -30,10 +33,11 @@ const blockComponents = {
   splitBlock: SplitBlockComponent,
   threeItemGrid: ThreeItemGridBlock,
   faqBlock: FaqBlockComponent,
+  productSeoBlock: ProductSeoBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: AnyBlock[]
 }> = (props) => {
   const { blocks } = props
 
