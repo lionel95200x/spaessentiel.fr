@@ -92,23 +92,8 @@ const TARGET_URL = 'REMPLACER_PAR_URL_ALIBABA';
     return { title, supplierPriceCents, priceCurrency, supplierName, supplierHref, moq, specRows, keyDetails };
   });
 
-  // Images produit — sélecteur validé : section description Alibaba
-  // [id*="structure_descption_productDescription"] img  OU  [data-testid="module-structure-description"] img
-  const images = await page.evaluate(() => {
-    const descImgs = [
-      ...document.querySelectorAll('[id*="structure_descption_productDescription"] img'),
-      ...document.querySelectorAll('[data-testid="module-structure-description"] img'),
-    ];
-    const seen = new Set();
-    return descImgs
-      .map(img => img.src)
-      .filter(src => {
-        if (!src.startsWith('http') || seen.has(src)) return false;
-        seen.add(src);
-        return true;
-      })
-      .slice(0, 10);
-  });
+  // Images produit — voir /get-image-alibaba pour la logique complète
+  const images = await extractAlibabImages(page, 10);
 
   const result = { ...data, images };
   console.log('\n=== RESULT ===');
@@ -149,7 +134,7 @@ const TARGET_URL = 'REMPLACER_PAR_URL_ALIBABA';
 
 ## Notes
 
-- **Sélecteurs validés** sur la fiche Hemlock Stainless 2026-03-25 — si une fiche change de layout, tester `[data-testid="module-attribute-row"]` en premier.
+- **Images** : layout "Magic" → `#detail_decorate_root img[data-src]` (prioritaire). Fallback : `[id*="structure_descption_productDescription"] img`. Les `data-src` commençant par `//` sont normalisés en `https:`. Les thumbnails `_80x80`, `_100x100`, `_250x250` sont exclus automatiquement.
 - **Prix** : Alibaba affiche une fourchette par quantité — toujours prendre le **premier montant** (prix unitaire le plus haut = prix fournisseur réaliste). Stocker en **centimes**.
 - **Images** : viennent de la section description produit (pas la galerie thumbnail). Max 10.
 - **Captcha** : en cas d'échec, recharger la page — passe généralement au 2e chargement.

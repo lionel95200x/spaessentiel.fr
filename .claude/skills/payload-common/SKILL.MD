@@ -7,7 +7,7 @@ Librairie commune pour tous les skills qui interagissent avec Payload CMS.
 ## Credentials & BASE_URL
 
 ```
-BASE_URL: http://localhost:3008
+BASE_URL: http://localhost:3000
 email:    claudeadmin@gmail.com
 password: claudeadmin
 ```
@@ -22,7 +22,7 @@ Toujours dans un **seul appel Bash** via Python inline :
 python3 - << 'EOF'
 import subprocess, json
 
-BASE_URL = "http://localhost:3008"
+BASE_URL = "http://localhost:3000"
 
 login = subprocess.run([
     "curl", "-s", "-X", "POST", f"{BASE_URL}/api/users/login",
@@ -112,7 +112,7 @@ data = json.loads(result.stdout)
 ```bash
 curl -sL "$IMAGE_URL" -o /tmp/upload.jpg
 
-MEDIA_ID=$(curl -s -X POST "http://localhost:3008/api/media" \
+MEDIA_ID=$(curl -s -X POST "http://localhost:3000/api/media" \
   -H "Authorization: JWT $TOKEN" \
   -F "file=@/tmp/upload.jpg;type=image/jpeg" \
   -F '_payload={"alt":"Description de l image"}' \

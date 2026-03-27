@@ -103,7 +103,7 @@ export default async function ProductPage({ params }: Args) {
     (product.relatedProducts?.filter((p) => typeof p === 'object') as Product[]) ?? []
 
   const category =
-    (product.categories?.find((c) => typeof c === 'object') as Category | undefined) ?? null
+    (product.categories?.find((c) => typeof c === 'object') as Category | undefined)
 
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
   const breadcrumbJsonLd = {

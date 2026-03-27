@@ -5,7 +5,7 @@ import type { Product } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { GridTileImage } from '@/components/Grid/tile'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { ZoomIn } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import { DefaultDocumentIDType } from 'payload'
@@ -73,23 +73,31 @@ export const Gallery: React.FC<Props> = ({ gallery }) => {
 
       {/* Thumbnails — only if more than one image */}
       {gallery.length > 1 && (
-        <Carousel setApi={setApi} className="w-full" opts={{ align: 'start', loop: false }}>
-          <CarouselContent>
-            {gallery.map((item, i) => {
-              if (typeof item.image !== 'object') return null
+        <div className="relative px-8">
+          <Carousel setApi={setApi} className="w-full" opts={{ align: 'start', loop: false }}>
+            <CarouselContent>
+              {gallery.map((item, i) => {
+                if (typeof item.image !== 'object') return null
 
-              return (
-                <CarouselItem
-                  className="basis-1/5 cursor-pointer"
-                  key={`${item.image.id}-${i}`}
-                  onClick={() => setCurrent(i)}
-                >
-                  <GridTileImage active={i === current} media={item.image} />
-                </CarouselItem>
-              )
-            })}
-          </CarouselContent>
-        </Carousel>
+                return (
+                  <CarouselItem
+                    className="basis-1/5 cursor-pointer"
+                    key={`${item.image.id}-${i}`}
+                    onClick={() => setCurrent(i)}
+                  >
+                    <GridTileImage active={i === current} media={item.image} />
+                  </CarouselItem>
+                )
+              })}
+            </CarouselContent>
+            {gallery.length > 5 && (
+              <>
+                <CarouselPrevious className="left-0" />
+                <CarouselNext className="right-0" />
+              </>
+            )}
+          </Carousel>
+        </div>
       )}
     </div>
   )

@@ -1,5 +1,5 @@
 ---
-name: product:seo
+name: product-seo
 description: Génère une description SEO optimisée + layout blocks ProductSeoBlock pour un produit Payload CMS. Indépendant d'Alibaba — fonctionne pour n'importe quel produit.
 ---
 
@@ -18,10 +18,12 @@ Génère 2 blocs `ProductSeoBlock` (image + texte alterné gauche/droite) et les
 
 ## Étape 1 — Récupérer le produit existant
 
+> /payload-common
+
 ```python
 import subprocess, json, urllib.request
 
-BASE_URL = "http://localhost:3008"
+BASE_URL = "http://localhost:3000"
 PRODUCT_ID = ...  # ID du produit à mettre à jour
 
 login = subprocess.run([
@@ -61,9 +63,10 @@ Chaque bloc = ~200-250 mots. Alterner imagePosition left/right.
 - ❌ Ne jamais mentionner le pays d'origine, "Chine", "Guangdong", etc.
 - ❌ Ne jamais mentionner le nom du fournisseur / fabricant
 - ❌ Pas de liste de specs brute — intégrer les specs dans du texte fluide
+- ❌ **Ne pas mettre de `h2` dans le `content`** — le champ `title` du bloc est déjà rendu en H2, l'ajouter aussi dans le richtext crée une duplication à l'affichage
 - ✅ Marque = "Spaessentiel" uniquement si besoin de branding
 - ✅ 2 blocs thématiques distincts (ex: "Bien-être & relaxation" + "Caractéristiques & installation")
-- ✅ H2 clair + paragraphes bénéfices + specs intégrées naturellement
+- ✅ `content` commence directement par un `para()` — pas de `h2()`
 
 ### Helpers Lexical
 
@@ -85,16 +88,16 @@ def richtext(children):
 ```python
 # Générer le contenu à partir des specs et du titre — adapter selon le produit
 # Bloc 1 : bénéfices / expérience utilisateur
+# ⚠️ Pas de h2() ici — le champ "title" du bloc est déjà rendu en H2 → doublon sinon
 content_bloc1 = richtext([
-    h2("Titre bloc 1 — bénéfices produit"),
     para("Paragraphe 1 : intro + bénéfices clés (matériau, usage, ambiance)"),
     para("Paragraphe 2 : specs intégrées naturellement (dimensions, capacité, matière)"),
     para("Paragraphe 3 : usage recommandé, entretien, durabilité"),
 ])
 
 # Bloc 2 : caractéristiques techniques + installation
+# ⚠️ Pas de h2() ici — même raison
 content_bloc2 = richtext([
-    h2("Titre bloc 2 — caractéristiques & installation"),
     para("Paragraphe 1 : specs techniques principales (puissance, dimensions, poids)"),
     para("Paragraphe 2 : installation, compatibilité, options"),
     para("Paragraphe 3 : garantie, service, pourquoi choisir ce modèle"),
@@ -128,6 +131,7 @@ seo_blocks = [
 
 ```python
 body = {
+    "_status": "published",  # ⚠️ obligatoire — sans ça, le PATCH crée un draft invisible en front
     "gallery": [{"image": mid} for mid in media_ids],
     "layout": existing_layout + seo_blocks,  # conserver les blocs existants
 }

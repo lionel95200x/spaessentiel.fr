@@ -22,24 +22,30 @@ type Props = {
   product: ProductType
   gallery: NonNullable<ProductType['gallery']>
   relatedProducts: ProductType[]
-  category?: Category | null
+  category?: Category
 }
 
 export function Product({ product, gallery, relatedProducts, category }: Props) {
-  const breadcrumbItems = [
+  const baseBreadcrumbItems = [
     { label: 'Accueil', href: '/' },
     { label: 'Boutique', href: '/shop' },
-    ...(category ? [{ label: category.title, href: `/category/${category.slug}` }] : []),
+  ]
+
+  const categoryBreadcrumbItems = category
+    ? [{ label: category.title, href: `/category/${category.slug}` }]
+    : []
+
+  const breadcrumbItems = [
+    ...baseBreadcrumbItems,
+    ...categoryBreadcrumbItems,
     { label: product.title },
   ]
 
+  const bannerImage = category?.banner
+
   return (
     <>
-      {typeof category?.banner === 'object' && category.banner ? (
-        <Banner image={category.banner} variant="thin" />
-      ) : (
-        <Banner src="/images/banner-wood.jpg" alt="Bois chauffant" variant="thin" />
-      )}
+      {bannerImage && <Banner image={bannerImage} variant="thin" />}
 
       <Breadcrumb items={breadcrumbItems} />
 
@@ -61,9 +67,9 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
         </ProductPageGrid>
       </ProductPageContainer>
 
-      <SupportSection />
-
       {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : null}
+
+      <SupportSection />
 
       <RelatedProducts products={relatedProducts} />
 

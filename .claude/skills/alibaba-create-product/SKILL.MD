@@ -1,5 +1,5 @@
 ---
-name: alibaba:create-product
+name: alibaba-create-product
 description: Parser une fiche produit Alibaba (URL unique) et créer/mettre à jour le produit dans Payload CMS (title, slug, description, gallery, supplier, categories, inventory, price)
 ---
 
@@ -32,10 +32,12 @@ Suivre `/alibaba:parsing` → récupérer : `title`, `supplierPriceCents`, `supp
 
 ## Étape 3 — Login Payload
 
+> /payload-common
+
 ```python
 import subprocess, json
 
-BASE_URL = "http://localhost:3008"
+BASE_URL = "http://localhost:3000"
 
 login = subprocess.run([
     "curl", "-s", "-X", "POST", f"{BASE_URL}/api/users/login",
