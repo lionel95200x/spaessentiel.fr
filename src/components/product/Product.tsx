@@ -45,7 +45,7 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
 
   return (
     <>
-      {bannerImage && <Banner image={bannerImage} variant="thin" />}
+      {bannerImage && typeof bannerImage === 'object' && <Banner image={bannerImage} variant="thin" />}
 
       <Breadcrumb items={breadcrumbItems} />
 
