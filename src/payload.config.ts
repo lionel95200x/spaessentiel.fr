@@ -82,14 +82,14 @@ export default buildConfig({
     },
   }),
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.SMTP_FROM,
-    defaultFromName: process.env.SMTP_FROM_NAME,
+    defaultFromAddress: process.env.SMTP_FROM!,
+    defaultFromName: process.env.SMTP_FROM_NAME!,
     transportOptions: {
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
+      host: process.env.SMTP_HOST!,
+      port: Number(process.env.SMTP_PORT!),
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: process.env.SMTP_USER!,
+        pass: process.env.SMTP_PASS!,
       },
     },
   }),

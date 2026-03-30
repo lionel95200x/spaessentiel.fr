@@ -61,12 +61,12 @@ export function HeaderClient({ header }: Props) {
                           appearance="nav"
                         />
                         {hasMega && (
-                          <ChevronDown className={cn('h-3 w-3 text-muted-foreground transition-transform duration-200', { 'rotate-180': isOpen })} />
+                          <ChevronDown className={cn('h-3 w-3 text-muted-foreground transition-transform duration-200 self-center', { 'rotate-180': isOpen })} />
                         )}
                       </div>
 
                       {hasMega && isOpen && (
-                        <div className="absolute left-0 top-full z-50 flex bg-background border rounded-lg shadow-lg p-4 gap-6 min-w-48">
+                        <div className="absolute left-0 top-full mt-1 z-50 flex bg-background border rounded-lg shadow-lg p-4 gap-6 min-w-48">
                           {item.megaMenuSections!.map((section) => (
                             <div key={section.id}>
                               {section.sectionTitle && (
