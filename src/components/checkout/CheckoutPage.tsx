@@ -79,14 +79,20 @@ export const CheckoutPage: React.FC = () => {
     }
   }, [])
 
+  const sanitizeAddress = (address: Partial<Address> | undefined) => {
+    if (!address) return undefined
+    const { id: _id, createdAt: _c, updatedAt: _u, customer: _cu, ...fields } = address as Address
+    return fields
+  }
+
   const initiatePaymentIntent = useCallback(
     async (paymentID: string) => {
       try {
         const paymentData = (await initiatePayment(paymentID, {
           additionalData: {
             ...(email ? { customerEmail: email } : {}),
-            billingAddress,
-            shippingAddress: billingAddressSameAsShipping ? billingAddress : shippingAddress,
+            billingAddress: sanitizeAddress(billingAddress),
+            shippingAddress: sanitizeAddress(billingAddressSameAsShipping ? billingAddress : shippingAddress),
           },
         })) as Record<string, unknown>
 
@@ -310,7 +316,7 @@ export const CheckoutPage: React.FC = () => {
             {paymentData && paymentData?.['clientSecret'] && (
               <div className="pb-16">
                 <h2 className="font-medium text-3xl">Paiement</h2>
-                {error && <p>{`Erreur : ${error}`}</p>}
+                {error && <Message error={error} />}
                 <Elements
                   options={{
                     appearance: {
