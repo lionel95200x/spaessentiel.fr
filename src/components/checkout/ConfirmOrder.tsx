@@ -1,6 +1,7 @@
 'use client'
 
 import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { gtagPurchase } from '@/utilities/gtag'
 import { useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
@@ -32,6 +33,11 @@ export const ConfirmOrder: React.FC = () => {
           },
         }).then((result) => {
           if (result && typeof result === 'object' && 'orderID' in result && result.orderID) {
+            gtagPurchase({
+              orderId: String(result.orderID),
+              value: cart?.subtotal ?? 0,
+            })
+
             const accessToken = 'accessToken' in result ? (result.accessToken as string) : ''
             const queryParams = new URLSearchParams()
 

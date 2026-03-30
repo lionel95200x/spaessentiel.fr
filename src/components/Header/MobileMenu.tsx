@@ -12,6 +12,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { useAuth } from '@/providers/Auth'
 import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -60,13 +66,47 @@ export function MobileMenu({ menu }: Props) {
 
         <div className="py-4">
           {menu?.length ? (
-            <ul className="flex w-full flex-col">
-              {menu.map((item) => (
-                <li className="py-2" key={item.id}>
-                  <CMSLink {...item.link} appearance="link" />
-                </li>
-              ))}
-            </ul>
+            <Accordion type="single" collapsible className="w-full">
+              {menu.map((item) => {
+                const hasMega = item.megaMenuSections && item.megaMenuSections.length > 0
+
+                if (hasMega) {
+                  return (
+                    <AccordionItem value={item.id!} key={item.id}>
+                      <AccordionTrigger className="py-2 text-sm font-normal hover:no-underline">
+                        {item.link.label}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-2 flex flex-col gap-3">
+                          {item.megaMenuSections!.map((section) => (
+                            <div key={section.id}>
+                              {section.sectionTitle && (
+                                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                                  {section.sectionTitle}
+                                </p>
+                              )}
+                              <ul className="flex flex-col gap-1">
+                                {section.links?.map((subLink) => (
+                                  <li key={subLink.id}>
+                                    <CMSLink {...subLink.link} appearance="link" className="text-sm" />
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )
+                }
+
+                return (
+                  <div className="py-2 border-b last:border-b-0" key={item.id}>
+                    <CMSLink {...item.link} appearance="link" />
+                  </div>
+                )
+              })}
+            </Accordion>
           ) : null}
         </div>
 

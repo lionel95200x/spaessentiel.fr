@@ -17,6 +17,33 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'megaMenuSections',
+          type: 'array',
+          label: 'Mega menu sections',
+          maxRows: 4,
+          admin: {
+            initCollapsed: true,
+          },
+          fields: [
+            {
+              name: 'sectionTitle',
+              type: 'text',
+              label: 'Titre de section',
+            },
+            {
+              name: 'links',
+              type: 'array',
+              label: 'Liens',
+              maxRows: 8,
+              fields: [
+                link({
+                  appearances: false,
+                }),
+              ],
+            },
+          ],
+        },
       ],
       maxRows: 6,
     },
