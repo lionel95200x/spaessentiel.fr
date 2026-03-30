@@ -132,7 +132,25 @@ function ProductBadge({ className, ...props }: React.ComponentProps<'span'>) {
   )
 }
 
+function OutOfStockOverlay({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="out-of-stock-overlay"
+      className={cn(
+        'absolute inset-0 z-20 flex items-end justify-center bg-background/60 pb-4',
+        className,
+      )}
+      {...props}
+    >
+      <span className="rounded-full border border-destructive/30 bg-destructive/10 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-widest text-destructive">
+        Rupture de stock
+      </span>
+    </div>
+  )
+}
+
 export {
+  OutOfStockOverlay,
   ProductBadge,
   ProductBannerSection,
   ProductPageBack,
