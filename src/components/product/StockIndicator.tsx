@@ -47,7 +47,7 @@ export const StockIndicator: React.FC<Props> = ({ product }) => {
   }
 
   if (stockQuantity <= 0) {
-    return <StockBadge variant="out-of-stock">Rupture de stock</StockBadge>
+    return null
   }
 
   if (stockQuantity < 10) {
