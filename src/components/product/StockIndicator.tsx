@@ -1,9 +1,9 @@
 'use client'
 
 import { Product, Variant } from '@/payload-types'
+import { StockBadge } from '@/components/ui/product-layout'
 import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
-import { CircleCheck, CircleAlert, CircleX } from 'lucide-react'
 
 type Props = {
   product: Product
@@ -47,33 +47,12 @@ export const StockIndicator: React.FC<Props> = ({ product }) => {
   }
 
   if (stockQuantity <= 0) {
-    return (
-      <div className="flex items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-3 py-1.5">
-        <CircleX className="size-3.5 text-destructive" />
-        <span className="font-mono text-xs font-medium uppercase tracking-wide text-destructive">
-          Rupture de stock
-        </span>
-      </div>
-    )
+    return <StockBadge variant="out-of-stock">Rupture de stock</StockBadge>
   }
 
   if (stockQuantity < 10) {
-    return (
-      <div className="flex items-center gap-2 rounded-full border border-warning/30 bg-warning/10 px-3 py-1.5">
-        <CircleAlert className="size-3.5 text-warning" />
-        <span className="font-mono text-xs font-medium uppercase tracking-wide text-warning">
-          Plus que {stockQuantity} en stock
-        </span>
-      </div>
-    )
+    return <StockBadge variant="low-stock">Plus que {stockQuantity} en stock</StockBadge>
   }
 
-  return (
-    <div className="flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1.5">
-      <CircleCheck className="size-3.5 text-success" />
-      <span className="font-mono text-xs font-medium uppercase tracking-wide text-success">
-        En stock
-      </span>
-    </div>
-  )
+  return <StockBadge variant="in-stock">En stock</StockBadge>
 }

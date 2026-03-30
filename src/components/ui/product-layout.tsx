@@ -1,5 +1,5 @@
 import { cn } from '@/utilities/cn'
-import { ChevronLeftIcon } from 'lucide-react'
+import { ChevronLeftIcon, CircleAlert, CircleCheck, CircleX } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -132,6 +132,56 @@ function ProductBadge({ className, ...props }: React.ComponentProps<'span'>) {
   )
 }
 
+const stockBadgeStyles = {
+  'out-of-stock': {
+    container: 'border-destructive/30 bg-destructive/10',
+    text: 'text-destructive',
+    Icon: CircleX,
+  },
+  'low-stock': {
+    container: 'border-warning/30 bg-warning/10',
+    text: 'text-warning',
+    Icon: CircleAlert,
+  },
+  'in-stock': {
+    container: 'border-success/30 bg-success/10',
+    text: 'text-success',
+    Icon: CircleCheck,
+  },
+} as const
+
+type StockBadgeVariant = keyof typeof stockBadgeStyles
+
+function StockBadge({
+  variant,
+  className,
+  children,
+  ...props
+}: React.ComponentProps<'div'> & { variant: StockBadgeVariant }) {
+  const style = stockBadgeStyles[variant]
+  return (
+    <div
+      data-slot="stock-badge"
+      className={cn(
+        'flex w-fit items-center gap-2 rounded-full border px-3 py-1.5',
+        style.container,
+        className,
+      )}
+      {...props}
+    >
+      <style.Icon className={cn('size-3.5', style.text)} />
+      <span
+        className={cn(
+          'font-mono text-xs font-medium uppercase tracking-wide',
+          style.text,
+        )}
+      >
+        {children}
+      </span>
+    </div>
+  )
+}
+
 function OutOfStockOverlay({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
@@ -163,4 +213,5 @@ export {
   ProductRelatedSection,
   ProductRelatedTitle,
   ProductStatusLabel,
+  StockBadge,
 }

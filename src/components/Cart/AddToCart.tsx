@@ -50,17 +50,7 @@ export function AddToCart({ product }: Props) {
     [addItem, product, selectedVariant],
   )
 
-  const isOutOfStock = useMemo<boolean>(() => {
-    if (product.enableVariants) {
-      if (!selectedVariant) return false
-      return !selectedVariant.inventory || selectedVariant.inventory <= 0
-    }
-    return !product.inventory || product.inventory <= 0
-  }, [product.enableVariants, product.inventory, selectedVariant])
-
   const disabled = useMemo<boolean>(() => {
-    if (isOutOfStock) return true
-
     const existingItem = cart?.items?.find((item) => {
       const productID = typeof item.product === 'object' ? item.product?.id : item.product
       const variantID = item.variant
@@ -86,23 +76,33 @@ export function AddToCart({ product }: Props) {
       return existingQuantity >= (product.inventory || 0)
     }
 
-    if (product.enableVariants && !selectedVariant) {
-      return true
+    if (product.enableVariants) {
+      if (!selectedVariant) {
+        return true
+      }
+
+      if (selectedVariant.inventory === 0) {
+        return true
+      }
+    } else {
+      if (product.inventory === 0) {
+        return true
+      }
     }
 
     return false
-  }, [isOutOfStock, selectedVariant, cart?.items, product])
+  }, [selectedVariant, cart?.items, product])
 
   return (
     <Button
-      aria-label={isOutOfStock ? 'Rupture de stock' : 'Ajouter au panier'}
-      variant={isOutOfStock ? 'outline' : 'cta'}
+      aria-label="Ajouter au panier"
+      variant="cta"
       size="lg"
       disabled={disabled || isLoading}
       onClick={addToCart}
       type="submit"
     >
-      {isOutOfStock ? 'Rupture de stock' : 'Ajouter au panier'}
+      Ajouter au panier
     </Button>
   )
 }
