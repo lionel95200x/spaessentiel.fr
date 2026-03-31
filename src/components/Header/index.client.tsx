@@ -44,11 +44,11 @@ export function HeaderClient({ header }: Props) {
                   return (
                     <li
                       key={item.id}
-                      className="relative pb-2 -mb-2"
+                      className="relative"
                       onMouseEnter={() => hasMega && setActiveMenu(item.id!)}
                       onMouseLeave={() => setActiveMenu(null)}
                     >
-                      <div className="flex items-center gap-0.5">
+                      <div className="flex items-center gap-1">
                         <CMSLink
                           {...item.link}
                           size={'clear'}
@@ -61,32 +61,39 @@ export function HeaderClient({ header }: Props) {
                           appearance="nav"
                         />
                         {hasMega && (
-                          <ChevronDown className={cn('h-3 w-3 text-muted-foreground transition-transform duration-200 self-center', { 'rotate-180': isOpen })} />
+                          <ChevronDown
+                            className={cn(
+                              'h-4 w-4 text-muted-foreground transition-transform duration-200',
+                              { 'rotate-180': isOpen }
+                            )}
+                          />
                         )}
                       </div>
 
                       {hasMega && isOpen && (
-                        <div className="absolute left-0 top-full mt-1 z-50 flex bg-background border rounded-lg shadow-lg p-4 gap-6 min-w-48">
-                          {item.megaMenuSections!.map((section) => (
-                            <div key={section.id}>
-                              {section.sectionTitle && (
-                                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                                  {section.sectionTitle}
-                                </p>
-                              )}
-                              <ul className="flex flex-col gap-1">
-                                {section.links?.map((subLink) => (
-                                  <li key={subLink.id}>
-                                    <CMSLink
-                                      {...subLink.link}
-                                      appearance="link"
-                                      className="text-sm hover:text-primary"
-                                    />
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                        <div className="absolute left-0 top-full pt-2 z-50">
+                          <div className="bg-background border rounded-lg shadow-xl p-6 flex gap-8 min-w-80">
+                            {item.megaMenuSections!.map((section) => (
+                              <div key={section.id} className="min-w-0 flex-1">
+                                {section.sectionTitle && (
+                                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                                    {section.sectionTitle}
+                                  </h3>
+                                )}
+                                <ul className="space-y-2">
+                                  {section.links?.map((subLink) => (
+                                    <li key={subLink.id}>
+                                      <CMSLink
+                                        {...subLink.link}
+                                        appearance="link"
+                                        className="text-sm hover:text-primary transition-colors block py-1"
+                                      />
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </li>

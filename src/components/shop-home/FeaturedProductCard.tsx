@@ -1,6 +1,7 @@
 import type { Media, Product } from '@/payload-types'
 
 import { Media as MediaComponent } from '@/components/Media'
+import { Price } from '@/components/Price'
 import { OutOfStockOverlay } from '@/components/ui/product-layout'
 import {
   FeaturedProductCardRoot,
@@ -48,7 +49,9 @@ export function FeaturedProductCard({ product }: { product: Product }) {
         </FeaturedProductImageSlot>
         <FeaturedProductTitle>{product.title}</FeaturedProductTitle>
         {typeof product.priceInUSD === 'number' && (
-          <FeaturedProductPrice>{product.priceInUSD} €</FeaturedProductPrice>
+          <FeaturedProductPrice>
+            <Price amount={product.priceInUSD} as="span" />
+          </FeaturedProductPrice>
         )}
       </FeaturedProductCardRoot>
     </Link>

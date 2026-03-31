@@ -138,7 +138,7 @@ export const CheckoutForm: React.FC<Props> = ({
       <PaymentElement />
       <div className="mt-8 flex gap-4">
         <Button disabled={!stripe || isLoading} type="submit" variant="default">
-          {isLoading ? 'Loading...' : 'Pay now'}
+          {isLoading ? 'Traitement...' : 'Payer maintenant'}
         </Button>
       </div>
     </form>

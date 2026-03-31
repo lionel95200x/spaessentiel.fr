@@ -319,6 +319,7 @@ export const CheckoutPage: React.FC = () => {
                 {error && <Message error={error} />}
                 <Elements
                   options={{
+                    locale: 'fr',
                     appearance: {
                       theme: 'stripe',
                       variables: {
