@@ -40,7 +40,7 @@ function ShopHeroSection({ className, ...props }: React.ComponentProps<'section'
   return (
     <section
       data-slot="shop-hero-section"
-      className={cn('relative h-[60vh] overflow-hidden', className)}
+      className={cn('relative h-[70vh] min-h-[480px] overflow-hidden', className)}
       {...props}
     />
   )
@@ -61,7 +61,7 @@ function ShopHeroOverlay({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="shop-hero-overlay"
       className={cn(
-        'absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent',
+        'absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10',
         className,
       )}
       {...props}
@@ -74,7 +74,7 @@ function ShopHeroContent({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="shop-hero-content"
       className={cn(
-        'absolute inset-0 flex flex-col items-center justify-center gap-6',
+        'absolute inset-0 flex flex-col items-center justify-end pb-14 gap-5',
         className,
       )}
       {...props}
@@ -87,7 +87,7 @@ function ShopHeroTitle({ className, ...props }: React.ComponentProps<'h1'>) {
     <h1
       data-slot="shop-hero-title"
       className={cn(
-        'text-center font-serif text-7xl font-light leading-none tracking-tight text-white lg:text-9xl',
+        'text-center font-serif text-6xl font-light leading-none tracking-tight text-white drop-shadow-md lg:text-8xl',
         className,
       )}
       {...props}
@@ -100,7 +100,7 @@ function ShopHeroSubtitle({ className, ...props }: React.ComponentProps<'p'>) {
     <p
       data-slot="shop-hero-subtitle"
       className={cn(
-        'text-center font-mono text-[0.65rem] uppercase tracking-[0.25em] text-white/70',
+        'text-center font-mono text-[0.7rem] uppercase tracking-[0.3em] text-white/80 border border-white/25 px-4 py-1.5 backdrop-blur-sm bg-white/5',
         className,
       )}
       {...props}
@@ -136,7 +136,7 @@ function ShopSectionHeader({ className, ...props }: React.ComponentProps<'div'>)
   return (
     <div
       data-slot="shop-section-header"
-      className={cn('mb-10 flex items-end justify-between', className)}
+      className={cn(        'mb-10 flex items-end justify-between border-t border-border pt-6', className)}
       {...props}
     />
   )
