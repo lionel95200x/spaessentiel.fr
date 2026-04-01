@@ -48,27 +48,28 @@ export function HeaderClient({ header }: Props) {
                       onMouseEnter={() => hasMega && setActiveMenu(item.id!)}
                       onMouseLeave={() => setActiveMenu(null)}
                     >
-                      <div className="flex items-center gap-1">
-                        <CMSLink
-                          {...item.link}
-                          size={'clear'}
-                          className={cn('relative navLink', {
-                            active:
-                              item.link.url && item.link.url !== '/'
-                                ? pathname.includes(item.link.url)
-                                : false,
-                          })}
-                          appearance="nav"
-                        />
+                      <CMSLink
+                        {...item.link}
+                        label={undefined}
+                        size={'clear'}
+                        className={cn('relative navLink', {
+                          active:
+                            item.link.url && item.link.url !== '/'
+                              ? pathname.includes(item.link.url)
+                              : false,
+                        })}
+                        appearance="nav"
+                      >
+                        {item.link.label}
                         {hasMega && (
                           <ChevronDown
                             className={cn(
-                              'h-4 w-4 text-muted-foreground transition-transform duration-200',
+                              'h-3 w-3 transition-transform duration-200',
                               { 'rotate-180': isOpen }
                             )}
                           />
                         )}
-                      </div>
+                      </CMSLink>
 
                       {hasMega && isOpen && (
                         <div className="absolute left-0 top-full pt-2 z-50">

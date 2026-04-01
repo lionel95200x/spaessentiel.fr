@@ -113,7 +113,7 @@ export default async function CategoryPage({ params }: Props) {
           // Payload nested-docs génère `category.breadcrumbs` automatiquement :
           // chaque entrée a { label, url } représentant le chemin complet jusqu'à
           // la catégorie courante. On l'utilise ici si disponible.
-          ...((category as any).breadcrumbs ?? []).map((b: { label?: string | null; url?: string | null }) => ({
+          ...(category.breadcrumbs ?? []).map((b: { label?: string | null; url?: string | null }) => ({
             label: b.label ?? '',
             href: b.url ?? undefined,
           })),
@@ -142,7 +142,17 @@ export default async function CategoryPage({ params }: Props) {
         )}
       </ShopSection>
 
-      <RenderBlocks blocks={(category as any).layout} />
+      {category.subdescription && (
+        <ShopSection className="py-12">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
+              {category.subdescription}
+            </p>
+          </div>
+        </ShopSection>
+      )}
+
+      {category.layout && <RenderBlocks blocks={category.layout} />}
     </>
   )
 }
