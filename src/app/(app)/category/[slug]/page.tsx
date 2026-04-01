@@ -143,11 +143,15 @@ export default async function CategoryPage({ params }: Props) {
       </ShopSection>
 
       {category.subdescription && (
-        <ShopSection className="py-12">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="text-lg leading-relaxed text-muted-foreground whitespace-pre-line">
+        <ShopSection className="py-16 border-t border-border">
+          <div className="mx-auto max-w-3xl text-center flex flex-col items-center gap-6">
+            <span className="font-mono text-[0.6rem] uppercase tracking-[0.3em] text-muted-foreground">
+              À propos de la collection
+            </span>
+            <p className="font-serif text-xl font-light leading-relaxed text-foreground/80 whitespace-pre-line text-pretty">
               {category.subdescription}
             </p>
+            <div className="w-12 h-px bg-border" aria-hidden="true" />
           </div>
         </ShopSection>
       )}
