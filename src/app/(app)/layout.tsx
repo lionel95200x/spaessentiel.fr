@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import Script from 'next/script'
+import { Suspense } from 'react'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -69,7 +70,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
           <ReassuranceBar />
           <Header />
-          <main>{children}</main>
+          <main>
+            <Suspense fallback={<div>Chargement...</div>}>
+              {children}
+            </Suspense>
+          </main>
           <Footer />
         </Providers>
       </body>

@@ -540,9 +540,6 @@ export interface Category {
   id: number;
   title: string;
   description?: string | null;
-  /**
-   * Description détaillée affichée sous le hero de la catégorie
-   */
   subdescription?: string | null;
   image?: (number | null) | Media;
   banner?: (number | null) | Media;
