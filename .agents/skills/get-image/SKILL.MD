@@ -8,7 +8,7 @@ allowed-tools: Bash
 
 **Collection** : `media`
 
-Utiliser le script LIST de `../payload-common/crud.md` avec `COLLECTION = "media"`, en affichant `filename` et `alt`.
+ utiliser le skill `/payload-common` avec `COLLECTION = "media"`, en affichant `filename` et `alt`.
 
 ---
 

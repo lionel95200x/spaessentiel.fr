@@ -8,7 +8,7 @@ allowed-tools: Bash
 
 **Collection** : `categories`
 
-Utiliser le script LIST de `../payload-common/crud.md` avec `COLLECTION = "categories"`.
+Utiliser le skill `/payload-common` avec `COLLECTION = "categories"`.
 
 ---
 
@@ -23,4 +23,4 @@ Total: 2 categories
 
 Puis demander : **Sur quelle catégorie veux-tu travailler ?**
 
-Pour publier une catégorie → utiliser le script PUBLISH de `../payload-common/crud.md` avec `COLLECTION = "categories"` et l'ID choisi.
+Pour publier une catégorie → utiliser le skill `/payload-common` avec `COLLECTION = "categories"` et l'ID choisi.
