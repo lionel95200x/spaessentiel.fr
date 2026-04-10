@@ -14,6 +14,8 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { OrderStatus } from '@/components/OrderStatus'
 import { AddressItem } from '@/components/addresses/AddressItem'
+import { CheckoutReassurance } from '@/components/checkout/CheckoutReassurance'
+import { ReassuranceBar } from '@/components/shop-home/ReassuranceBar'
 
 export const dynamic = 'force-dynamic'
 
@@ -120,7 +122,7 @@ export default async function Order({ params, searchParams }: PageProps) {
             <Button asChild variant="ghost">
               <Link href="/orders">
                 <ChevronLeftIcon />
-                All orders
+                Toutes les commandes
               </Link>
             </Button>
           </div>
@@ -129,14 +131,14 @@ export default async function Order({ params, searchParams }: PageProps) {
         )}
 
         <h1 className="text-sm uppercase font-mono px-2 bg-primary/10 rounded tracking-[0.07em]">
-          <span className="">{`Order #${order.id}`}</span>
+          <span className="">{`Commande #${order.id}`}</span>
         </h1>
       </div>
 
       <div className="bg-card border rounded-lg px-6 py-4 flex flex-col gap-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
           <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Order Date</p>
+            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Date de commande</p>
             <p className="text-lg">
               <time dateTime={order.createdAt}>
                 {formatDateTime({ date: order.createdAt, format: 'MMMM dd, yyyy' })}
@@ -151,7 +153,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
           {order.status && (
             <div className="grow max-w-1/3">
-              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Status</p>
+              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Statut</p>
               <OrderStatus className="text-sm" status={order.status} />
             </div>
           )}
@@ -159,7 +161,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.items && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Items</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Articles</h2>
             <ul className="flex flex-col gap-6">
               {order.items?.map((item, index) => {
                 if (typeof item.product === 'string') {
@@ -167,7 +169,7 @@ export default async function Order({ params, searchParams }: PageProps) {
                 }
 
                 if (!item.product || typeof item.product !== 'object') {
-                  return <div key={index}>This item is no longer available.</div>
+                  return <div key={index}>Cet article n'est plus disponible.</div>
                 }
 
                 const variant =
@@ -189,12 +191,20 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.shippingAddress && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Shipping Address</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Adresse de livraison</h2>
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />
           </div>
         )}
+
+        <div className="mt-8">
+          <CheckoutReassurance />
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <ReassuranceBar />
       </div>
     </div>
   )
@@ -204,11 +214,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { id } = await params
 
   return {
-    description: `Order details for order ${id}.`,
+    description: `Détails de la commande ${id}.`,
     openGraph: mergeOpenGraph({
-      title: `Order ${id}`,
+      title: `Commande ${id}`,
       url: `/orders/${id}`,
     }),
-    title: `Order ${id}`,
+    title: `Commande ${id}`,
   }
 }
