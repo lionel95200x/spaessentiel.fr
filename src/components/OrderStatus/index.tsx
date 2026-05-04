@@ -7,6 +7,21 @@ type Props = {
 }
 
 export const OrderStatus: React.FC<Props> = ({ status, className }) => {
+  const getStatusLabel = (status: StatusOptions) => {
+    switch (status) {
+      case 'processing':
+        return 'En cours'
+      case 'completed':
+        return 'Terminée'
+      case 'cancelled':
+        return 'Annulée'
+      case 'refunded':
+        return 'Remboursée'
+      default:
+        return status
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -18,7 +33,7 @@ export const OrderStatus: React.FC<Props> = ({ status, className }) => {
         },
       )}
     >
-      {status}
+      {getStatusLabel(status)}
     </div>
   )
 }

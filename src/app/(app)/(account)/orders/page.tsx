@@ -17,7 +17,7 @@ export default async function Orders() {
   let orders: Order[] | null = null
 
   if (!user) {
-    redirect(`/login?warning=${encodeURIComponent('Please login to access your orders.')}`)
+    redirect(`/login?warning=${encodeURIComponent('Veuillez vous connecter pour accéder à vos commandes.')}`)
   }
 
   try {
@@ -40,9 +40,9 @@ export default async function Orders() {
   return (
     <>
       <div className="border p-8 rounded-lg bg-primary-foreground w-full">
-        <h1 className="text-3xl font-medium mb-8">Orders</h1>
+        <h1 className="text-3xl font-medium mb-8">Commandes</h1>
         {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="">You have no orders.</p>
+          <p className="">Vous n'avez aucune commande.</p>
         )}
 
         {orders && orders.length > 0 && (
@@ -60,10 +60,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  description: 'Your orders.',
+  description: 'Vos commandes.',
   openGraph: mergeOpenGraph({
-    title: 'Orders',
+    title: 'Commandes',
     url: '/orders',
   }),
-  title: 'Orders',
+  title: 'Commandes',
 }
