@@ -2,30 +2,31 @@
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 
 /**
- * Hook personnalisé qui combine PayloadCMS currency + formatage français
- * Résout le problème de position du symbole € (doit être à droite en français)
+ * Hook qui formate les prix selon les conventions françaises
+ * (symbole devise à droite, espace insécable, virgule décimale)
+ *
+ * Utilise la devise active fournie par PayloadCMS (`useCurrency`).
  */
 export const useLocalizedCurrency = () => {
   const { currency, setCurrency } = useCurrency()
 
+  const code = currency.code
+  const decimals = currency.decimals
+  const divisor = Math.pow(10, decimals)
+
   /**
-   * Formate un prix selon les conventions françaises
-   * @param amount - Montant en centimes (format PayloadCMS)
-   * @returns Prix formaté "1 234,56 €" (€ à droite, format français)
+   * @param amount - Montant en plus petite unité (centimes pour EUR/USD)
+   * @returns Prix formaté en français — ex: "1 234,56 €"
    */
   const formatPrice = (amount: number): string => {
-    // PayloadCMS stocke les montants en centimes, on divise par 100
-    const priceInEuros = amount / 100
+    const value = amount / divisor
 
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
-      currency: 'EUR', // Force EUR même si backend est en USD
-    }).format(priceInEuros)
+      currency: code,
+    }).format(value)
   }
 
-  /**
-   * Formate une fourchette de prix
-   */
   const formatPriceRange = (lowestAmount: number, highestAmount: number): string => {
     const low = formatPrice(lowestAmount)
     const high = formatPrice(highestAmount)

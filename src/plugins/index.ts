@@ -1,4 +1,4 @@
-import { ecommercePlugin } from '@payloadcms/plugin-ecommerce'
+import { ecommercePlugin, EUR, USD } from '@payloadcms/plugin-ecommerce'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -110,6 +110,10 @@ export const plugins: Plugin[] = [
       customerOnlyFieldAccess,
       isAdmin,
       isDocumentOwner,
+    },
+    currencies: {
+      supportedCurrencies: [USD, EUR],
+      defaultCurrency: 'EUR',
     },
     customers: {
       slug: 'users',
