@@ -20,7 +20,7 @@ export default async function AccountPage() {
 
   if (!user) {
     redirect(
-      `/login?warning=${encodeURIComponent('Please login to access your account settings.')}`,
+      `/login?warning=${encodeURIComponent('Connectez-vous pour accéder à votre compte.')}`,
     )
   }
 
@@ -49,22 +49,21 @@ export default async function AccountPage() {
   return (
     <>
       <div className="border p-8 rounded-lg bg-primary-foreground">
-        <h1 className="text-3xl font-medium mb-8">Account settings</h1>
+        <h1 className="text-3xl font-medium mb-8">Mon compte</h1>
         <AccountForm />
       </div>
 
       <div className=" border p-8 rounded-lg bg-primary-foreground">
-        <h2 className="text-3xl font-medium mb-8">Recent Orders</h2>
+        <h2 className="text-3xl font-medium mb-8">Commandes récentes</h2>
 
         <div className="prose dark:prose-invert mb-8">
           <p>
-            These are the most recent orders you have placed. Each order is associated with an
-            payment. As you place more orders, they will appear in your orders list.
+            Voici vos dernières commandes. Au fur et à mesure de vos achats, elles apparaîtront ici.
           </p>
         </div>
 
         {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="mb-8">You have no orders.</p>
+          <p className="mb-8">Vous n&apos;avez encore passé aucune commande.</p>
         )}
 
         {orders && orders.length > 0 && (
@@ -78,7 +77,7 @@ export default async function AccountPage() {
         )}
 
         <Button asChild variant="default">
-          <Link href="/orders">View all orders</Link>
+          <Link href="/orders">Voir toutes mes commandes</Link>
         </Button>
       </div>
     </>
@@ -86,10 +85,10 @@ export default async function AccountPage() {
 }
 
 export const metadata: Metadata = {
-  description: 'Create an account or log in to your existing account.',
+  description: 'Gérez votre compte et consultez vos commandes.',
   openGraph: mergeOpenGraph({
-    title: 'Account',
+    title: 'Mon compte',
     url: '/account',
   }),
-  title: 'Account',
+  title: 'Mon compte',
 }

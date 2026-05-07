@@ -32,7 +32,7 @@ export default function Checkout() {
         </div>
       )}
 
-      <h1 className="sr-only">Checkout</h1>
+      <h1 className="sr-only">Paiement</h1>
 
       <CheckoutPage />
     </div>
@@ -40,10 +40,10 @@ export default function Checkout() {
 }
 
 export const metadata: Metadata = {
-  description: 'Checkout.',
+  description: 'Paiement sécurisé de votre commande.',
   openGraph: mergeOpenGraph({
-    title: 'Checkout',
+    title: 'Paiement',
     url: '/checkout',
   }),
-  title: 'Checkout',
+  title: 'Paiement',
 }

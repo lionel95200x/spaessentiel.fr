@@ -48,10 +48,10 @@ export const FindOrderForm: React.FC<Props> = ({ initialEmail }) => {
       if (result.success) {
         setSuccess(true)
       } else {
-        setSubmitError(result.error || 'Something went wrong. Please try again.')
+        setSubmitError(result.error || 'Une erreur est survenue. Veuillez réessayer.')
       }
     } catch {
-      setSubmitError('Something went wrong. Please try again.')
+      setSubmitError('Une erreur est survenue. Veuillez réessayer.')
     } finally {
       setIsSubmitting(false)
     }
@@ -60,10 +60,10 @@ export const FindOrderForm: React.FC<Props> = ({ initialEmail }) => {
   if (success) {
     return (
       <Fragment>
-        <h1 className="text-xl mb-4">Check your email</h1>
+        <h1 className="text-xl mb-4">Vérifiez votre boîte mail</h1>
         <div className="prose dark:prose-invert">
           <p>
-            {`If an order exists with the provided email and order ID, we've sent you an email with a link to view your order details.`}
+            Si une commande existe avec l&apos;email et le numéro renseignés, nous vous avons envoyé un lien pour la consulter.
           </p>
         </div>
       </Fragment>
@@ -72,30 +72,30 @@ export const FindOrderForm: React.FC<Props> = ({ initialEmail }) => {
 
   return (
     <Fragment>
-      <h1 className="text-xl mb-4">Find my order</h1>
+      <h1 className="text-xl mb-4">Retrouver ma commande</h1>
       <div className="prose dark:prose-invert mb-8">
-        <p>{`Please enter your email and order ID below. We'll send you a link to view your order.`}</p>
+        <p>Saisissez votre email et le numéro de votre commande. Nous vous enverrons un lien pour la consulter.</p>
       </div>
       <form className="max-w-lg flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
         <FormItem>
           <Label htmlFor="email" className="mb-2">
-            Email address
+            Adresse email
           </Label>
           <Input
             id="email"
-            {...register('email', { required: 'Email is required.' })}
+            {...register('email', { required: 'L’email est requis.' })}
             type="email"
           />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
         <FormItem>
           <Label htmlFor="orderID" className="mb-2">
-            Order ID
+            Numéro de commande
           </Label>
           <Input
             id="orderID"
             {...register('orderID', {
-              required: 'Order ID is required.',
+              required: 'Le numéro de commande est requis.',
             })}
             type="text"
           />
@@ -103,7 +103,7 @@ export const FindOrderForm: React.FC<Props> = ({ initialEmail }) => {
         </FormItem>
         {submitError && <FormError message={submitError} />}
         <Button type="submit" className="self-start" variant="default" disabled={isSubmitting}>
-          {isSubmitting ? 'Sending...' : 'Find order'}
+          {isSubmitting ? 'Envoi…' : 'Retrouver la commande'}
         </Button>
       </form>
     </Fragment>

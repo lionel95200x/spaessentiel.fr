@@ -13,6 +13,6 @@ export const defaultSort: SortFilterItem = {
 export const sorting: SortFilterItem[] = [
   defaultSort,
   { slug: '-createdAt', reverse: true, title: 'Derniers ajouts' },
-  { slug: 'priceInUSD', reverse: false, title: 'Prix: Low to high' }, // asc
-  { slug: '-priceInUSD', reverse: true, title: 'Prix: High to low' },
+  { slug: 'priceInUSD', reverse: false, title: 'Prix : croissant' }, // asc
+  { slug: '-priceInUSD', reverse: true, title: 'Prix : décroissant' },
 ]

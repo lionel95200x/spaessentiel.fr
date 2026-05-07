@@ -6,7 +6,6 @@ import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import Link from 'next/link'
 import React, { Fragment, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -41,7 +40,7 @@ export const ForgotPasswordForm: React.FC = () => {
       setError('')
     } else {
       setError(
-        'There was a problem while attempting to send you a password reset email. Please try again.',
+        'Une erreur est survenue lors de l’envoi du lien de réinitialisation. Veuillez réessayer.',
       )
     }
   }, [])
@@ -50,12 +49,10 @@ export const ForgotPasswordForm: React.FC = () => {
     <Fragment>
       {!success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Forgot Password</h1>
+          <h1 className="text-xl mb-4">Mot de passe oublié</h1>
           <div className="prose dark:prose-invert mb-8">
             <p>
-              {`Please enter your email below. You will receive an email message with instructions on
-              how to reset your password. To manage your all users, `}
-              <Link href="/admin/collections/users">login to the admin dashboard</Link>.
+              Saisissez votre adresse email ci-dessous. Vous recevrez un message contenant les instructions pour réinitialiser votre mot de passe.
             </p>
           </div>
           <form className="max-w-lg" onSubmit={handleSubmit(onSubmit)}>
@@ -63,27 +60,27 @@ export const ForgotPasswordForm: React.FC = () => {
 
             <FormItem className="mb-8">
               <Label htmlFor="email" className="mb-2">
-                Email address
+                Adresse email
               </Label>
               <Input
                 id="email"
-                {...register('email', { required: 'Please provide your email.' })}
+                {...register('email', { required: 'Veuillez saisir votre email.' })}
                 type="email"
               />
               {errors.email && <FormError message={errors.email.message} />}
             </FormItem>
 
             <Button type="submit" variant="default">
-              Forgot Password
+              Envoyer le lien
             </Button>
           </form>
         </React.Fragment>
       )}
       {success && (
         <React.Fragment>
-          <h1 className="text-xl mb-4">Request submitted</h1>
+          <h1 className="text-xl mb-4">Demande envoyée</h1>
           <div className="prose dark:prose-invert">
-            <p>Check your email for a link that will allow you to securely reset your password.</p>
+            <p>Consultez votre boîte mail : vous y trouverez un lien sécurisé pour réinitialiser votre mot de passe.</p>
           </div>
         </React.Fragment>
       )}

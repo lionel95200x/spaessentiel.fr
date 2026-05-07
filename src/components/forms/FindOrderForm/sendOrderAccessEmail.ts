@@ -40,19 +40,19 @@ export async function sendOrderAccessEmail({
     const orderURL = `${serverURL}/orders/${order.id}?email=${encodeURIComponent(email)}&accessToken=${order.accessToken}`
 
     const emailBody = `
-        <h1>View Your Order</h1>
-        <p>Click the link below to view your order details:</p>
-        <p><a href="${orderURL}">View Order #${order.id}</a></p>
-        <p>Or copy and paste this URL into your browser:</p>
+        <h1>Consulter votre commande</h1>
+        <p>Cliquez sur le lien ci-dessous pour voir le détail de votre commande :</p>
+        <p><a href="${orderURL}">Voir la commande n°${order.id}</a></p>
+        <p>Ou copiez-collez cette URL dans votre navigateur :</p>
         <p>${orderURL}</p>
-        <p>This link will give you access to view your order details.</p>
+        <p>Ce lien vous donne accès au détail de votre commande.</p>
       `
 
     console.log('[sendOrderAccessEmail] Email body:', emailBody)
 
     await payload.sendEmail({
       to: email,
-      subject: `Access your order #${order.id}`,
+      subject: `Votre commande n°${order.id}`,
       html: emailBody,
     })
 
