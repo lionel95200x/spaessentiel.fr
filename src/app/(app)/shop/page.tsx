@@ -24,6 +24,7 @@ export default async function ShopPage({ searchParams }: Props) {
     collection: 'products',
     draft: false,
     overrideAccess: false,
+    limit: 100,
     select: {
       title: true,
       slug: true,

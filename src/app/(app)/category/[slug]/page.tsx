@@ -66,6 +66,7 @@ export default async function CategoryPage({ params }: Props) {
     draft: false,
     overrideAccess: false,
     depth: 1,
+    limit: 100,
     where: {
       and: [
         { _status: { equals: 'published' } },
