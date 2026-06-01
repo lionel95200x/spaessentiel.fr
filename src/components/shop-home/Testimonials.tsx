@@ -13,34 +13,23 @@ import {
   TestimonialsTitle,
 } from '@/components/ui/testimonials-layout'
 
-const TESTIMONIALS = [
-  {
-    id: 1,
-    rating: 5,
-    quote:
-      "Une qualité exceptionnelle. Mon rituel du sauna a été transformé depuis l'achat de ces huiles essentielles. La livraison était rapide et l'emballage soigné.",
-    name: 'Sophie M.',
-    role: 'Cliente depuis 2024',
-  },
-  {
-    id: 2,
-    rating: 5,
-    quote:
-      "Des accessoires haut de gamme qui durent dans le temps. J'ai acheté un set complet et je suis ravi. Le service client est aux petits soins.",
-    name: 'Pierre L.',
-    role: 'Client depuis 2023',
-  },
-  {
-    id: 3,
-    rating: 5,
-    quote:
-      "La sélection de produits est vraiment soignée. On sent que chaque article a été choisi avec soin. Je recommande vivement à tous les amateurs de sauna.",
-    name: 'Marie-Christine D.',
-    role: 'Cliente depuis 2025',
-  },
-]
+type Testimonial = {
+  id: number
+  rating: number
+  quote: string
+  name: string
+  role: string
+}
+
+// Avis clients réels uniquement — à alimenter au fil des commandes.
+// Tant que le tableau est vide, la section ne s'affiche pas : pas de faux avis.
+const TESTIMONIALS: Testimonial[] = []
 
 export function Testimonials() {
+  if (TESTIMONIALS.length === 0) {
+    return null
+  }
+
   return (
     <TestimonialsSection>
       <TestimonialsHeader>

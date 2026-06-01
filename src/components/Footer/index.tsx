@@ -124,7 +124,6 @@ export async function Footer() {
             <FooterContactBlock>
               <span>{CONTACT.address.company}</span>
               <span>{CONTACT.address.street}</span>
-              <span>{CONTACT.address.building}</span>
               <span>{CONTACT.address.postal}</span>
               <span>{CONTACT.address.country}</span>
               <a href={CONTACT.phoneHref}>Tel : {CONTACT.phone}</a>

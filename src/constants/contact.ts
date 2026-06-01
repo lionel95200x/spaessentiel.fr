@@ -1,4 +1,4 @@
-const phone = '01 34 24 50 90'
+const phone = '06 23 88 15 14'
 
 export const CONTACT = {
   phone,
@@ -9,9 +9,8 @@ export const CONTACT = {
   },
   address: {
     company: 'Spa Essentiel',
-    street: '9 chaussée Jules César,',
-    building: 'Bâtiment 304',
-    postal: '95520 OSNY',
+    street: '45 rue de Vaugirard',
+    postal: '75006 Paris',
     country: 'France',
   },
   social: [
@@ -24,5 +23,5 @@ export const CONTACT = {
     morning: '8h – 12h',
     afternoon: '13h – 17h',
   },
-  copyrightStartYear: 2005,
+  copyrightStartYear: 2026,
 }
