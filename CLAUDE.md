@@ -6,6 +6,14 @@
 
 ---
 
+## 🏷️ Modèle business : DROPSHIPPING
+
+- Les produits sont **fournis en dropshipping** (fournisseurs Alibaba) → **pas de stock physique détenu**.
+- **Conséquence stock** : le champ `inventory` est purement nominal. **Aucun produit ne doit jamais être à 0** — tous maintenus à `10` (disponibilité permanente). Ne jamais traiter un stock bas/0 comme un blocage : remettre à 10.
+- Marge = `price` (vente) − `supplierPrice` (coût fournisseur, champ interne).
+
+---
+
 ## Statut projet (2026-04-24)
 
 - 🚧 Site **en cours de création** — pas encore lancé publiquement
