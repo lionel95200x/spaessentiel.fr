@@ -28,16 +28,6 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { PaymentIcons } from '../checkout/PaymentIcons'
 
-const MARQUES = [
-  { label: 'Archipel', href: '/marques/archipel' },
-  { label: 'Boreal Sauna', href: '/marques/boreal-sauna' },
-  { label: 'François Roger', href: '/marques/francois-roger' },
-  { label: 'Harvia', href: '/marques/harvia' },
-  { label: 'Insigna', href: '/marques/insigna' },
-  { label: 'PRO STEAM', href: '/marques/pro-steam' },
-  { label: 'Voir plus', href: '/marques' },
-]
-
 const QUI_SOMMES_NOUS = [
   { label: 'Qui sommes-nous ?', href: '/qui-sommes-nous' },
   { label: 'Inspiration', href: '/inspiration' },
@@ -101,7 +91,6 @@ export async function Footer() {
 
           <FooterColumnsGrid>
             <FooterNavColumn title="Nos univers" links={categoriesLinks} />
-            <FooterNavColumn title="Nos marques" links={MARQUES} />
             <FooterNavColumn title="Qui sommes-nous" links={QUI_SOMMES_NOUS} />
             <FooterNavColumn title="Infos pratiques" links={INFOS_PRATIQUES} />
           </FooterColumnsGrid>
