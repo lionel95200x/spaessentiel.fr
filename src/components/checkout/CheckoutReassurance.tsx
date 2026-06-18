@@ -1,6 +1,5 @@
 import { CONTACT } from '@/constants/contact'
 import { Lock } from 'lucide-react'
-import { LiveAgents } from './LiveAgents'
 import { PaymentIcons } from './PaymentIcons'
 
 export function CheckoutReassurance() {
@@ -27,7 +26,6 @@ export function CheckoutReassurance() {
         <p className="text-sm text-muted-foreground">
           {CONTACT.hours.days} : {CONTACT.hours.morning}, {CONTACT.hours.afternoon}
         </p>
-        <LiveAgents />
       </div>
     </div>
   )

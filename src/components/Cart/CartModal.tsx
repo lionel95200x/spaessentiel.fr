@@ -17,7 +17,6 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { PaymentIcons } from '@/components/checkout/PaymentIcons'
-import { RatingAgents } from '@/components/checkout/LiveAgents'
 import { Button } from '@/components/ui/button'
 import { Product, VariantOption } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
@@ -165,7 +164,6 @@ export function CartModal() {
               </ul>
 
               <div className='py-4 flex flex-col gap-3'>
-                <RatingAgents />
                 <PaymentIcons />
               </div>
               <div className="px-4">

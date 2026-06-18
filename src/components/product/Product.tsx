@@ -12,7 +12,7 @@ import {
   ProductPageGrid,
   ProductPageInfoCol,
 } from '@/components/ui/product-layout'
-import { FreeDeliveryBadge, ProductReassurance, TrustpilotBadge } from '@/components/ui/product-reassurance'
+import { FreeDeliveryBadge, ProductReassurance } from '@/components/ui/product-reassurance'
 import { SupportSection } from '@/components/ui/support-section'
 import { CheckoutReassurance } from '@/components/checkout/CheckoutReassurance'
 import { Banner } from '@/components/ui/banner'
@@ -61,7 +61,6 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
             <ProductDescription product={product} />
             <FreeDeliveryBadge />
             <ProductReassurance />
-            <TrustpilotBadge />
             <CheckoutReassurance />
           </ProductPageInfoCol>
         </ProductPageGrid>

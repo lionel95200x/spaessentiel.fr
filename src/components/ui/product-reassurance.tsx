@@ -1,6 +1,5 @@
 import { cn } from '@/utilities/cn'
 import { Package, RotateCcw, ShieldCheck, Truck, Users } from 'lucide-react'
-import Image from 'next/image'
 import React from 'react'
 
 function ProductReassurance({ className, ...props }: React.ComponentProps<'div'>) {
@@ -39,20 +38,6 @@ function FreeDeliveryBadge({ className }: { className?: string }) {
         <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
       </span>
       <span className="font-extrabold leading-[1.1]">Livraison &amp; Retours Gratuits</span>
-    </div>
-  )
-}
-
-function TrustpilotBadge({ className }: { className?: string }) {
-  return (
-    <div data-slot="trustpilot-badge" className={cn(className)}>
-      <Image
-        src="/images/reassurance/trustpilot.svg"
-        alt="Trustpilot"
-        width={200}
-        height={50}
-        unoptimized
-      />
     </div>
   )
 }
@@ -108,4 +93,4 @@ function SupplierName({ name, className }: { name: string; className?: string })
   )
 }
 
-export { FreeDeliveryBadge, PersonsCapacityBadge, PremiumBadge, ProductReassurance, SupplierName, TrustpilotBadge, WeightBadge }
+export { FreeDeliveryBadge, PersonsCapacityBadge, PremiumBadge, ProductReassurance, SupplierName, WeightBadge }
