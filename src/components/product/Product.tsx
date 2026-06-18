@@ -12,10 +12,11 @@ import {
   ProductPageGrid,
   ProductPageInfoCol,
 } from '@/components/ui/product-layout'
-import { FreeDeliveryBadge, ProductReassurance } from '@/components/ui/product-reassurance'
+import { ExpertHelp, FreeDeliveryBadge, ProductReassurance } from '@/components/ui/product-reassurance'
 import { SupportSection } from '@/components/ui/support-section'
 import { CheckoutReassurance } from '@/components/checkout/CheckoutReassurance'
 import { Banner } from '@/components/ui/banner'
+import { CONTACT } from '@/constants/contact'
 import { Suspense } from 'react'
 
 type Props = {
@@ -59,6 +60,7 @@ export function Product({ product, gallery, relatedProducts, category }: Props) 
 
           <ProductPageInfoCol>
             <ProductDescription product={product} />
+            <ExpertHelp phone={CONTACT.phone} phoneHref={CONTACT.phoneHref} />
             <FreeDeliveryBadge />
             <ProductReassurance />
             <CheckoutReassurance />

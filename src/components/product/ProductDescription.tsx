@@ -6,12 +6,14 @@ import { Price } from '@/components/Price'
 import { RichText } from '@/components/RichText'
 import { StockIndicator } from '@/components/product/StockIndicator'
 import { VariantSelector } from '@/components/product/VariantSelector'
-import { PersonsCapacityBadge, PremiumBadge, SupplierName, WeightBadge } from '@/components/ui/product-reassurance'
+import { PaymentFacility, PersonsCapacityBadge, PremiumBadge, SupplierName, WeightBadge } from '@/components/ui/product-reassurance'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
+import { useLocalizedCurrency } from '@/hooks/useLocalizedCurrency'
 import React, { Suspense } from 'react'
 
 export function ProductDescription({ product }: { product: Product }) {
   const { currency } = useCurrency()
+  const { formatPrice } = useLocalizedCurrency()
   let amount = 0,
     lowestAmount = 0,
     highestAmount = 0
@@ -50,6 +52,8 @@ export function ProductDescription({ product }: { product: Product }) {
     amount = product[priceField]
   }
 
+  const installmentAmount = hasVariants ? lowestAmount : amount
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-3">
@@ -67,6 +71,12 @@ export function ProductDescription({ product }: { product: Product }) {
             <Price amount={amount} compareAtPrice={product.compareAtPrice ?? undefined} />
           )}
         </div>
+        {installmentAmount > 0 && (
+          <PaymentFacility
+            label="Payez en 3 ou 4 fois par carte"
+            detail={`soit env. 4 × ${formatPrice(installmentAmount / 4)}`}
+          />
+        )}
       </div>
 
       {product.description ? (
