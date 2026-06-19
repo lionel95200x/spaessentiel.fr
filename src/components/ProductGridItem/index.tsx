@@ -52,7 +52,7 @@ export const ProductGridItem: React.FC<Props> = ({ product }) => {
 
       <div className="mt-4 flex justify-between items-start gap-4">
         <div className="flex flex-col gap-0.5">
-          <div className="font-serif text-lg font-light tracking-wide text-foreground leading-snug">
+          <div className="font-serif text-lg font-light tracking-wide text-foreground leading-snug group-hover:underline underline-offset-2 decoration-1">
             {title}
           </div>
           {typeof product.supplier === 'object' && product.supplier?.commercialName && (
