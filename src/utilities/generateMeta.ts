@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import type { Page, Post, Product } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
+import { CONTACT } from '@/constants/contact'
 
 export const generateMeta = async (args: { doc: Page | Post | Product }): Promise<Metadata> => {
   const { doc } = args || {}
@@ -28,9 +29,9 @@ export const generateMeta = async (args: { doc: Page | Post | Product }): Promis
             },
           ]
         : undefined,
-      title: doc?.meta?.title || doc?.title || 'Payload Ecommerce Template',
+      title: doc?.meta?.title ? doc.meta.title : doc?.title ? doc.title : CONTACT.address.company,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
-    title: doc?.meta?.title || doc?.title || 'Payload Ecommerce Template',
+    title: doc?.meta?.title ? doc.meta.title : doc?.title ? doc.title : CONTACT.address.company,
   }
 }
